@@ -12,13 +12,8 @@ builder.Services.AddControllersWithViews().AddNewtonsoftJson(options => {
 builder.Services.AddMvc();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<CelestialFrontierContext>(options =>
-   options.UseSqlServer(builder.Configuration.GetConnectionString("CelestialFrontierDatabase"))
+   options.UseSqlServer(builder.Configuration.GetConnectionString("CelestialFrontier_Dev"))
 );
-
-//builder.Services.AddControllers().AddNewtonsoftJson(options => {
-//    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-//    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-//});
 
 var app = builder.Build();
 

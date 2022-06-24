@@ -3,9 +3,13 @@
     "secrets1": {
       "type": "secrets"
     },
-    "mssql1": {
+    "CelestialFrontier_Dev": {
       "type": "mssql",
-      "connectionId": "ConnectionStrings:CelestialFrontierDatabase"
+      "connectionId": "ConnectionStrings:CelestialFrontier_Dev"
+    },
+    "CelestialFrontier_Prod": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:CelestialFrontier_Prod"
     }
   }
 }

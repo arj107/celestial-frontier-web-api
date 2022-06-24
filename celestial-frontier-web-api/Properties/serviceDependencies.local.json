@@ -3,10 +3,15 @@
     "secrets1": {
       "type": "secrets.user"
     },
-    "mssql1": {
+    "CelestialFrontier_Dev": {
       "secretStore": "LocalSecretsFile",
       "type": "mssql.onprem",
-      "connectionId": "ConnectionStrings:CelestialFrontierDatabase"
+      "connectionId": "ConnectionStrings:CelestialFrontier_Dev"
+    },
+    "CelestialFrontier_Prod": {
+      "secretStore": "LocalSecretsFile",
+      "type": "mssql.onprem",
+      "connectionId": "ConnectionStrings:CelestialFrontier_Prod"
     }
   }
 }
