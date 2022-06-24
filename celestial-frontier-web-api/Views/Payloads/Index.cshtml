@@ -1,0 +1,89 @@
+﻿@model IEnumerable<celestial_frontier_web_api.Models.Payload>
+
+@{
+    ViewData["Title"] = "Payloads";
+}
+
+<h1>Payloads</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ModulePointsCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KineticDamageBias)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CounterSusceptibility)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseDamage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseCriticalHitMultiplier)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PayloadType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PowerLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeaponFrameType)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModulePointsCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KineticDamageBias)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CounterSusceptibility)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BaseDamage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BaseCriticalHitMultiplier)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PayloadType.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PowerLevel.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeaponFrameType.Text)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PayloadGuid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PayloadGuid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PayloadGuid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

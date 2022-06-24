@@ -1,0 +1,78 @@
+﻿@model celestial_frontier_web_api.Models.Spaceship
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Spaceship</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SpaceshipGuid" class="control-label"></label>
+                <input asp-for="SpaceshipGuid" class="form-control" value="@Guid.NewGuid()" disabled/>
+                <span asp-validation-for="SpaceshipGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpaceshipTypeGuid" class="control-label">SpaceshipType</label>
+                @*ViewBag values come from this Model's corresponding controller*@
+                <select asp-for="SpaceshipTypeGuid" class ="form-control" asp-items="ViewBag.SpaceshipTypeGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpaceshipCategoryGuid" class="control-label">SpaceshipCategory</label>
+                @*ViewBag values come from this Model's corresponding controller*@
+                <select asp-for="SpaceshipCategoryGuid" class ="form-control" asp-items="ViewBag.SpaceshipCategoryGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="WeaponPowerLevelGuid" class="control-label">WeaponPowerLevel</label>
+                @*ViewBag values come from this Model's corresponding controller*@
+                <select asp-for="WeaponPowerLevelGuid" class ="form-control" asp-items="ViewBag.WeaponPowerLevelGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PointDefenseSystemPowerLevelGuid" class="control-label">PointDefenseSystemPowerLevel</label>
+                @*ViewBag values come from this Model's corresponding controller*@
+                <select asp-for="PointDefenseSystemPowerLevelGuid" class ="form-control" asp-items="ViewBag.PointDefenseSystemPowerLevelGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Class" class="control-label"></label>
+                <input asp-for="Class" class="form-control" />
+                <span asp-validation-for="Class" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HullMass" class="control-label"></label>
+                <input asp-for="HullMass" class="form-control" />
+                <span asp-validation-for="HullMass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecificHeatCapacity" class="control-label"></label>
+                <input asp-for="SpecificHeatCapacity" class="form-control" />
+                <span asp-validation-for="SpecificHeatCapacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BaseHullHealth" class="control-label"></label>
+                <input asp-for="BaseHullHealth" class="form-control" />
+                <span asp-validation-for="BaseHullHealth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,83 @@
+﻿@model celestial_frontier_web_api.Models.Payload
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Payload</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PayloadGuid" class="control-label"></label>
+                <input asp-for="PayloadGuid" class="form-control" value="@Guid.NewGuid()" disabled/>
+                <span asp-validation-for="PayloadGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PayloadTypeGuid" class="control-label">PayloadType</label>
+                @*ViewBag values come from this Model's corresponding controller*@
+                <select asp-for="PayloadTypeGuid" class ="form-control" asp-items="ViewBag.PayloadTypeGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="WeaponFrameTypeGuid" class="control-label">WeaponFrameType</label>
+                @*ViewBag values come from this Model's corresponding controller*@
+                <select asp-for="WeaponFrameTypeGuid" class ="form-control" asp-items="ViewBag.WeaponFrameTypeGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PowerLevelGuid" class="control-label">PowerLevel</label>
+                @*ViewBag values come from this Model's corresponding controller*@
+                <select asp-for="PowerLevelGuid" class ="form-control" asp-items="ViewBag.PowerLevelGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModulePointsCost" class="control-label"></label>
+                <input asp-for="ModulePointsCost" class="form-control" />
+                <span asp-validation-for="ModulePointsCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KineticDamageBias" class="control-label"></label>
+                <input asp-for="KineticDamageBias" class="form-control" />
+                <span asp-validation-for="KineticDamageBias" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CounterSusceptibility" class="control-label"></label>
+                <input asp-for="CounterSusceptibility" class="form-control" />
+                <span asp-validation-for="CounterSusceptibility" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BaseDamage" class="control-label"></label>
+                <input asp-for="BaseDamage" class="form-control" />
+                <span asp-validation-for="BaseDamage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BaseCriticalHitMultiplier" class="control-label"></label>
+                <input asp-for="BaseCriticalHitMultiplier" class="form-control" />
+                <span asp-validation-for="BaseCriticalHitMultiplier" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

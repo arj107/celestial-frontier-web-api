@@ -1,0 +1,84 @@
+﻿@model celestial_frontier_web_api.Models.WeaponFrame
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>WeaponFrame</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="WeaponFrameGuid" />
+            <div class="form-group">
+                <label asp-for="WeaponFrameTypeGuid" class="control-label">WeaponFrameType</label>
+                <select asp-for="WeaponFrameTypeGuid" class="form-control" asp-items="ViewBag.WeaponFrameTypeGuid"></select>
+                <span asp-validation-for="WeaponFrameTypeGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PowerLevelGuid" class="control-label">PowerLevel</label>
+                <select asp-for="PowerLevelGuid" class="form-control" asp-items="ViewBag.PowerLevelGuid"></select>
+                <span asp-validation-for="PowerLevelGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModulePointsCost" class="control-label"></label>
+                <input asp-for="ModulePointsCost" class="form-control" />
+                <span asp-validation-for="ModulePointsCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mass" class="control-label"></label>
+                <input asp-for="Mass" class="form-control" />
+                <span asp-validation-for="Mass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecificHeatCapacity" class="control-label"></label>
+                <input asp-for="SpecificHeatCapacity" class="form-control" />
+                <span asp-validation-for="SpecificHeatCapacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BaseMagSize" class="control-label"></label>
+                <input asp-for="BaseMagSize" class="form-control" />
+                <span asp-validation-for="BaseMagSize" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BaseAccuracyModifier" class="control-label"></label>
+                <input asp-for="BaseAccuracyModifier" class="form-control" />
+                <span asp-validation-for="BaseAccuracyModifier" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BaseTurnsToArm" class="control-label"></label>
+                <input asp-for="BaseTurnsToArm" class="form-control" />
+                <span asp-validation-for="BaseTurnsToArm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BaseCriticalHitChance" class="control-label"></label>
+                <input asp-for="BaseCriticalHitChance" class="form-control" />
+                <span asp-validation-for="BaseCriticalHitChance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

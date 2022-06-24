@@ -1,0 +1,78 @@
+﻿@model celestial_frontier_web_api.Models.PointDefenseSystem
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>PointDefenseSystem</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PointDefenseSystemGuid" class="control-label"></label>
+                <input asp-for="PointDefenseSystemGuid" class="form-control" value="@Guid.NewGuid()" disabled/>
+                <span asp-validation-for="PointDefenseSystemGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PowerLevelGuid" class="control-label">PowerLevel</label>
+                @*ViewBag values come from this Model's corresponding controller*@
+                <select asp-for="PowerLevelGuid" class ="form-control" asp-items="ViewBag.PowerLevelGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModulePointsCost" class="control-label"></label>
+                <input asp-for="ModulePointsCost" class="form-control" />
+                <span asp-validation-for="ModulePointsCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mass" class="control-label"></label>
+                <input asp-for="Mass" class="form-control" />
+                <span asp-validation-for="Mass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecificHeatCapacity" class="control-label"></label>
+                <input asp-for="SpecificHeatCapacity" class="form-control" />
+                <span asp-validation-for="SpecificHeatCapacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountermeasureCapacity" class="control-label"></label>
+                <input asp-for="CountermeasureCapacity" class="form-control" />
+                <span asp-validation-for="CountermeasureCapacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountermeasureRegenerationRate" class="control-label"></label>
+                <input asp-for="CountermeasureRegenerationRate" class="form-control" />
+                <span asp-validation-for="CountermeasureRegenerationRate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Efficiency" class="control-label"></label>
+                <input asp-for="Efficiency" class="form-control" />
+                <span asp-validation-for="Efficiency" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

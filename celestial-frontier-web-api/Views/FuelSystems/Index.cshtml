@@ -1,0 +1,77 @@
+﻿@model IEnumerable<celestial_frontier_web_api.Models.FuelSystem>
+
+@{
+    ViewData["Title"] = "Fuel Systems";
+}
+
+<h1>Fuel Systems</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ModulePointsCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mass)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpecificHeatCapacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FuelCapacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FuelRegenerationRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpaceshipType)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModulePointsCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mass)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpecificHeatCapacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FuelCapacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FuelRegenerationRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpaceshipType.Text)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FuelSystemGuid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FuelSystemGuid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FuelSystemGuid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

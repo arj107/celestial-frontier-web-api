@@ -1,0 +1,69 @@
+﻿@model celestial_frontier_web_api.Models.Armor
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Armor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ArmorGuid" />
+            <div class="form-group">
+                <label asp-for="SpaceshipTypeGuid" class="control-label">SpaceshipType</label>
+                <select asp-for="SpaceshipTypeGuid" class="form-control" asp-items="ViewBag.SpaceshipTypeGuid"></select>
+                <span asp-validation-for="SpaceshipTypeGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModulePointsCost" class="control-label"></label>
+                <input asp-for="ModulePointsCost" class="form-control" />
+                <span asp-validation-for="ModulePointsCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mass" class="control-label"></label>
+                <input asp-for="Mass" class="form-control" />
+                <span asp-validation-for="Mass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecificHeatCapacity" class="control-label"></label>
+                <input asp-for="SpecificHeatCapacity" class="form-control" />
+                <span asp-validation-for="SpecificHeatCapacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KineticResistance" class="control-label"></label>
+                <input asp-for="KineticResistance" class="form-control" />
+                <span asp-validation-for="KineticResistance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EnergyResistance" class="control-label"></label>
+                <input asp-for="EnergyResistance" class="form-control" />
+                <span asp-validation-for="EnergyResistance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
