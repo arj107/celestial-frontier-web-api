@@ -14,9 +14,9 @@ namespace celestial_frontier_web_api.ApiControllers
     [ApiController]
     public class PayloadTypesController : ControllerBase
     {
-        private readonly CelestialFrontierContext _context;
+        private readonly CelestialFrontier_DevContext _context;
 
-        public PayloadTypesController(CelestialFrontierContext context)
+        public PayloadTypesController(CelestialFrontier_DevContext context)
         {
             _context = context;
         }
@@ -97,7 +97,7 @@ namespace celestial_frontier_web_api.ApiControllers
         {
           if (_context.PayloadTypes == null)
           {
-              return Problem("Entity set 'CelestialFrontierContext.PayloadTypes'  is null.");
+              return Problem("Entity set 'CelestialFrontier_DevContext.PayloadTypes'  is null.");
           }
             _context.PayloadTypes.Add(payloadType);
             try

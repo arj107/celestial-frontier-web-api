@@ -7,37 +7,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using celestial_frontier_web_api.Models;
 
-namespace celestial_frontier_web_api.WebControllers
-{
-    public class ArmorsController : Controller
-    {
-        private readonly CelestialFrontierContext _context;
+namespace celestial_frontier_web_api.WebControllers {
+    public class ArmorsController : Controller {
+        private readonly CelestialFrontier_DevContext _context;
 
-        public ArmorsController(CelestialFrontierContext context)
-        {
+        public ArmorsController(CelestialFrontier_DevContext context) {
             _context = context;
         }
 
         // GET: Armors
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             var celestialFrontierContext = _context.Armors.Include(a => a.SpaceshipType);
             return View(await celestialFrontierContext.ToListAsync());
         }
 
         // GET: Armors/Details/5
-        public async Task<IActionResult> Details(Guid? id)
-        {
-            if (id == null || _context.Armors == null)
-            {
+        public async Task<IActionResult> Details(Guid? id) {
+            if (id == null || _context.Armors == null) {
                 return NotFound();
             }
 
             var armor = await _context.Armors
                 .Include(a => a.SpaceshipType)
                 .FirstOrDefaultAsync(m => m.ArmorGuid == id);
-            if (armor == null)
-            {
+            if (armor == null) {
                 return NotFound();
             }
 
@@ -45,8 +38,7 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: Armors/Create
-        public IActionResult Create()
-        {
+        public IActionResult Create() {
             ViewData["SpaceshipTypeGuid"] = new SelectList(_context.SpaceshipTypes, "SpaceshipTypeGuid", "Text");
             return View();
         }
@@ -56,10 +48,8 @@ namespace celestial_frontier_web_api.WebControllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ArmorGuid,SpaceshipTypeGuid,ModulePointsCost,Mass,SpecificHeatCapacity,KineticResistance,EnergyResistance,Title,Description")] Armor armor)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create([Bind("ArmorGuid,SpaceshipTypeGuid,ModulePointsCost,Mass,SpecificHeatCapacity,KineticResistance,EnergyResistance,Title,Description")] Armor armor) {
+            if (ModelState.IsValid) {
                 armor.ArmorGuid = Guid.NewGuid();
                 _context.Add(armor);
                 await _context.SaveChangesAsync();
@@ -70,16 +60,13 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: Armors/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null || _context.Armors == null)
-            {
+        public async Task<IActionResult> Edit(Guid? id) {
+            if (id == null || _context.Armors == null) {
                 return NotFound();
             }
 
             var armor = await _context.Armors.FindAsync(id);
-            if (armor == null)
-            {
+            if (armor == null) {
                 return NotFound();
             }
             ViewData["SpaceshipTypeGuid"] = new SelectList(_context.SpaceshipTypes, "SpaceshipTypeGuid", "Text", armor.SpaceshipTypeGuid);
@@ -91,28 +78,19 @@ namespace celestial_frontier_web_api.WebControllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ArmorGuid,SpaceshipTypeGuid,ModulePointsCost,Mass,SpecificHeatCapacity,KineticResistance,EnergyResistance,Title,Description")] Armor armor)
-        {
-            if (id != armor.ArmorGuid)
-            {
+        public async Task<IActionResult> Edit(Guid id, [Bind("ArmorGuid,SpaceshipTypeGuid,ModulePointsCost,Mass,SpecificHeatCapacity,KineticResistance,EnergyResistance,Title,Description")] Armor armor) {
+            if (id != armor.ArmorGuid) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            if (ModelState.IsValid) {
+                try {
                     _context.Update(armor);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ArmorExists(armor.ArmorGuid))
-                    {
+                } catch (DbUpdateConcurrencyException) {
+                    if (!ArmorExists(armor.ArmorGuid)) {
                         return NotFound();
-                    }
-                    else
-                    {
+                    } else {
                         throw;
                     }
                 }
@@ -123,18 +101,15 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: Armors/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null || _context.Armors == null)
-            {
+        public async Task<IActionResult> Delete(Guid? id) {
+            if (id == null || _context.Armors == null) {
                 return NotFound();
             }
 
             var armor = await _context.Armors
                 .Include(a => a.SpaceshipType)
                 .FirstOrDefaultAsync(m => m.ArmorGuid == id);
-            if (armor == null)
-            {
+            if (armor == null) {
                 return NotFound();
             }
 
@@ -144,25 +119,21 @@ namespace celestial_frontier_web_api.WebControllers
         // POST: Armors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            if (_context.Armors == null)
-            {
-                return Problem("Entity set 'CelestialFrontierContext.Armors'  is null.");
+        public async Task<IActionResult> DeleteConfirmed(Guid id) {
+            if (_context.Armors == null) {
+                return Problem("Entity set 'CelestialFrontier_DevContext.Armors'  is null.");
             }
             var armor = await _context.Armors.FindAsync(id);
-            if (armor != null)
-            {
+            if (armor != null) {
                 _context.Armors.Remove(armor);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ArmorExists(Guid id)
-        {
-          return (_context.Armors?.Any(e => e.ArmorGuid == id)).GetValueOrDefault();
+        private bool ArmorExists(Guid id) {
+            return (_context.Armors?.Any(e => e.ArmorGuid == id)).GetValueOrDefault();
         }
     }
 }

@@ -7,29 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using celestial_frontier_web_api.Models;
 
-namespace celestial_frontier_web_api.WebControllers
-{
-    public class WeaponFramesController : Controller
-    {
-        private readonly CelestialFrontierContext _context;
+namespace celestial_frontier_web_api.WebControllers {
+    public class WeaponFramesController : Controller {
+        private readonly CelestialFrontier_DevContext _context;
 
-        public WeaponFramesController(CelestialFrontierContext context)
-        {
+        public WeaponFramesController(CelestialFrontier_DevContext context) {
             _context = context;
         }
 
         // GET: WeaponFrames
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             var celestialFrontierContext = _context.WeaponFrames.Include(w => w.PowerLevel).Include(w => w.WeaponFrameType);
             return View(await celestialFrontierContext.ToListAsync());
         }
 
         // GET: WeaponFrames/Details/5
-        public async Task<IActionResult> Details(Guid? id)
-        {
-            if (id == null || _context.WeaponFrames == null)
-            {
+        public async Task<IActionResult> Details(Guid? id) {
+            if (id == null || _context.WeaponFrames == null) {
                 return NotFound();
             }
 
@@ -37,8 +31,7 @@ namespace celestial_frontier_web_api.WebControllers
                 .Include(w => w.PowerLevel)
                 .Include(w => w.WeaponFrameType)
                 .FirstOrDefaultAsync(m => m.WeaponFrameGuid == id);
-            if (weaponFrame == null)
-            {
+            if (weaponFrame == null) {
                 return NotFound();
             }
 
@@ -46,8 +39,7 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: WeaponFrames/Create
-        public IActionResult Create()
-        {
+        public IActionResult Create() {
             ViewData["PowerLevelGuid"] = new SelectList(_context.PowerLevels, "PowerLevelGuid", "Text");
             ViewData["WeaponFrameTypeGuid"] = new SelectList(_context.WeaponFrameTypes, "WeaponFrameTypeGuid", "Text");
             return View();
@@ -58,10 +50,8 @@ namespace celestial_frontier_web_api.WebControllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WeaponFrameGuid,WeaponFrameTypeGuid,PowerLevelGuid,ModulePointsCost,Mass,SpecificHeatCapacity,BaseMagSize,BaseAccuracyModifier,BaseTurnsToArm,BaseCriticalHitChance,Title,Description")] WeaponFrame weaponFrame)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create([Bind("WeaponFrameGuid,WeaponFrameTypeGuid,PowerLevelGuid,ModulePointsCost,Mass,SpecificHeatCapacity,BaseMagSize,BaseAccuracyModifier,BaseTurnsToArm,BaseCriticalHitChance,Title,Description")] WeaponFrame weaponFrame) {
+            if (ModelState.IsValid) {
                 weaponFrame.WeaponFrameGuid = Guid.NewGuid();
                 _context.Add(weaponFrame);
                 await _context.SaveChangesAsync();
@@ -73,16 +63,13 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: WeaponFrames/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null || _context.WeaponFrames == null)
-            {
+        public async Task<IActionResult> Edit(Guid? id) {
+            if (id == null || _context.WeaponFrames == null) {
                 return NotFound();
             }
 
             var weaponFrame = await _context.WeaponFrames.FindAsync(id);
-            if (weaponFrame == null)
-            {
+            if (weaponFrame == null) {
                 return NotFound();
             }
             ViewData["PowerLevelGuid"] = new SelectList(_context.PowerLevels, "PowerLevelGuid", "Text", weaponFrame.PowerLevelGuid);
@@ -95,28 +82,19 @@ namespace celestial_frontier_web_api.WebControllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("WeaponFrameGuid,WeaponFrameTypeGuid,PowerLevelGuid,ModulePointsCost,Mass,SpecificHeatCapacity,BaseMagSize,BaseAccuracyModifier,BaseTurnsToArm,BaseCriticalHitChance,Title,Description")] WeaponFrame weaponFrame)
-        {
-            if (id != weaponFrame.WeaponFrameGuid)
-            {
+        public async Task<IActionResult> Edit(Guid id, [Bind("WeaponFrameGuid,WeaponFrameTypeGuid,PowerLevelGuid,ModulePointsCost,Mass,SpecificHeatCapacity,BaseMagSize,BaseAccuracyModifier,BaseTurnsToArm,BaseCriticalHitChance,Title,Description")] WeaponFrame weaponFrame) {
+            if (id != weaponFrame.WeaponFrameGuid) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            if (ModelState.IsValid) {
+                try {
                     _context.Update(weaponFrame);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!WeaponFrameExists(weaponFrame.WeaponFrameGuid))
-                    {
+                } catch (DbUpdateConcurrencyException) {
+                    if (!WeaponFrameExists(weaponFrame.WeaponFrameGuid)) {
                         return NotFound();
-                    }
-                    else
-                    {
+                    } else {
                         throw;
                     }
                 }
@@ -128,10 +106,8 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: WeaponFrames/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null || _context.WeaponFrames == null)
-            {
+        public async Task<IActionResult> Delete(Guid? id) {
+            if (id == null || _context.WeaponFrames == null) {
                 return NotFound();
             }
 
@@ -139,8 +115,7 @@ namespace celestial_frontier_web_api.WebControllers
                 .Include(w => w.PowerLevel)
                 .Include(w => w.WeaponFrameType)
                 .FirstOrDefaultAsync(m => m.WeaponFrameGuid == id);
-            if (weaponFrame == null)
-            {
+            if (weaponFrame == null) {
                 return NotFound();
             }
 
@@ -150,25 +125,21 @@ namespace celestial_frontier_web_api.WebControllers
         // POST: WeaponFrames/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            if (_context.WeaponFrames == null)
-            {
-                return Problem("Entity set 'CelestialFrontierContext.WeaponFrames'  is null.");
+        public async Task<IActionResult> DeleteConfirmed(Guid id) {
+            if (_context.WeaponFrames == null) {
+                return Problem("Entity set 'CelestialFrontier_DevContext.WeaponFrames'  is null.");
             }
             var weaponFrame = await _context.WeaponFrames.FindAsync(id);
-            if (weaponFrame != null)
-            {
+            if (weaponFrame != null) {
                 _context.WeaponFrames.Remove(weaponFrame);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool WeaponFrameExists(Guid id)
-        {
-          return (_context.WeaponFrames?.Any(e => e.WeaponFrameGuid == id)).GetValueOrDefault();
+        private bool WeaponFrameExists(Guid id) {
+            return (_context.WeaponFrames?.Any(e => e.WeaponFrameGuid == id)).GetValueOrDefault();
         }
     }
 }

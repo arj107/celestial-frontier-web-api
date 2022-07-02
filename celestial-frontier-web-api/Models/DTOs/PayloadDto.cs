@@ -12,6 +12,7 @@
         public string Title { get; set; } = null!;
         public string Description { get; set; } = null!;
 
+        public PayloadDto() {}
         public PayloadDto(Payload payload) {
             this.PayloadGuid = payload.PayloadGuid;
             this.PayloadType = new PayloadTypeDto(payload.PayloadType);

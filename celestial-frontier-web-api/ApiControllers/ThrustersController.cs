@@ -14,9 +14,9 @@ namespace celestial_frontier_web_api.ApiControllers
     [ApiController]
     public class ThrustersController : ControllerBase
     {
-        private readonly CelestialFrontierContext _context;
+        private readonly CelestialFrontier_DevContext _context;
 
-        public ThrustersController(CelestialFrontierContext context)
+        public ThrustersController(CelestialFrontier_DevContext context)
         {
             _context = context;
         }
@@ -98,7 +98,7 @@ namespace celestial_frontier_web_api.ApiControllers
         {
           if (_context.Thrusters == null)
           {
-              return Problem("Entity set 'CelestialFrontierContext.Thrusters'  is null.");
+              return Problem("Entity set 'CelestialFrontier_DevContext.Thrusters'  is null.");
           }
             _context.Thrusters.Add(thruster);
             try

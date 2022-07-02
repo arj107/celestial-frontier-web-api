@@ -1,0 +1,181 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using celestial_frontier_web_api.Models;
+
+namespace celestial_frontier_web_api.WebControllers {
+    public class FleetCorvettesController : Controller {
+        private readonly CelestialFrontier_DevContext _context;
+
+        public FleetCorvettesController(CelestialFrontier_DevContext context) {
+            _context = context;
+        }
+
+        // GET: FleetCorvettes
+        public async Task<IActionResult> Index() {
+            var celestialFrontier_DevContext = _context.FleetCorvettes.Include(f => f.Armor).Include(f => f.Corvette).Include(f => f.Fleet).Include(f => f.FuelSystem).Include(f => f.Payload).Include(f => f.PointDefenseSystem).Include(f => f.Thruster).Include(f => f.WeaponFrame);
+            return View(await celestialFrontier_DevContext.ToListAsync());
+        }
+
+        // GET: FleetCorvettes/Details/5
+        public async Task<IActionResult> Details(Guid? id) {
+            if (id == null || _context.FleetCorvettes == null) {
+                return NotFound();
+            }
+
+            var fleetCorvette = await _context.FleetCorvettes
+                .Include(f => f.Armor)
+                .Include(f => f.Corvette)
+                .Include(f => f.Fleet)
+                .Include(f => f.FuelSystem)
+                .Include(f => f.Payload)
+                .Include(f => f.PointDefenseSystem)
+                .Include(f => f.Thruster)
+                .Include(f => f.WeaponFrame)
+                .FirstOrDefaultAsync(m => m.FleetCorvetteGuid == id);
+            if (fleetCorvette == null) {
+                return NotFound();
+            }
+
+            return View(fleetCorvette);
+        }
+
+        // GET: FleetCorvettes/Create
+        public IActionResult Create() {
+            ViewData["ArmorGuid"] = new SelectList(_context.Armors, "ArmorGuid", "Title");
+            ViewData["CorvetteGuid"] = new SelectList(_context.Corvettes, "CorvetteGuid", "Class");
+            ViewData["FleetGuid"] = new SelectList(_context.Fleets, "FleetGuid", "Name");
+            ViewData["FuelSystemGuid"] = new SelectList(_context.FuelSystems, "FuelSystemGuid", "Title");
+            ViewData["PayloadGuid"] = new SelectList(_context.Payloads, "PayloadGuid", "Title");
+            ViewData["PointDefenseSystemGuid"] = new SelectList(_context.PointDefenseSystems, "PointDefenseSystemGuid", "Title");
+            ViewData["ThrusterGuid"] = new SelectList(_context.Thrusters, "ThrusterGuid", "Title");
+            ViewData["WeaponFrameGuid"] = new SelectList(_context.WeaponFrames, "WeaponFrameGuid", "Title");
+            return View();
+        }
+
+        // POST: FleetCorvettes/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("FleetCorvetteGuid,FleetGuid,CorvetteGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] FleetCorvette fleetCorvette) {
+            if (ModelState.IsValid) {
+                fleetCorvette.FleetCorvetteGuid = Guid.NewGuid();
+                _context.Add(fleetCorvette);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["ArmorGuid"] = new SelectList(_context.Armors, "ArmorGuid", "Title", fleetCorvette.ArmorGuid);
+            ViewData["CorvetteGuid"] = new SelectList(_context.Corvettes, "CorvetteGuid", "Class", fleetCorvette.CorvetteGuid);
+            ViewData["FleetGuid"] = new SelectList(_context.Fleets, "FleetGuid", "Name", fleetCorvette.FleetGuid);
+            ViewData["FuelSystemGuid"] = new SelectList(_context.FuelSystems, "FuelSystemGuid", "Title", fleetCorvette.FuelSystemGuid);
+            ViewData["PayloadGuid"] = new SelectList(_context.Payloads, "PayloadGuid", "Title", fleetCorvette.PayloadGuid);
+            ViewData["PointDefenseSystemGuid"] = new SelectList(_context.PointDefenseSystems, "PointDefenseSystemGuid", "Title", fleetCorvette.PointDefenseSystemGuid);
+            ViewData["ThrusterGuid"] = new SelectList(_context.Thrusters, "ThrusterGuid", "Title", fleetCorvette.ThrusterGuid);
+            ViewData["WeaponFrameGuid"] = new SelectList(_context.WeaponFrames, "WeaponFrameGuid", "Title", fleetCorvette.WeaponFrameGuid);
+            return View(fleetCorvette);
+        }
+
+        // GET: FleetCorvettes/Edit/5
+        public async Task<IActionResult> Edit(Guid? id) {
+            if (id == null || _context.FleetCorvettes == null) {
+                return NotFound();
+            }
+
+            var fleetCorvette = await _context.FleetCorvettes.FindAsync(id);
+            if (fleetCorvette == null) {
+                return NotFound();
+            }
+            ViewData["ArmorGuid"] = new SelectList(_context.Armors, "ArmorGuid", "Title", fleetCorvette.ArmorGuid);
+            ViewData["CorvetteGuid"] = new SelectList(_context.Corvettes, "CorvetteGuid", "Class", fleetCorvette.CorvetteGuid);
+            ViewData["FleetGuid"] = new SelectList(_context.Fleets, "FleetGuid", "Name", fleetCorvette.FleetGuid);
+            ViewData["FuelSystemGuid"] = new SelectList(_context.FuelSystems, "FuelSystemGuid", "Title", fleetCorvette.FuelSystemGuid);
+            ViewData["PayloadGuid"] = new SelectList(_context.Payloads, "PayloadGuid", "Title", fleetCorvette.PayloadGuid);
+            ViewData["PointDefenseSystemGuid"] = new SelectList(_context.PointDefenseSystems, "PointDefenseSystemGuid", "Title", fleetCorvette.PointDefenseSystemGuid);
+            ViewData["ThrusterGuid"] = new SelectList(_context.Thrusters, "ThrusterGuid", "Title", fleetCorvette.ThrusterGuid);
+            ViewData["WeaponFrameGuid"] = new SelectList(_context.WeaponFrames, "WeaponFrameGuid", "Title", fleetCorvette.WeaponFrameGuid);
+            return View(fleetCorvette);
+        }
+
+        // POST: FleetCorvettes/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, [Bind("FleetCorvetteGuid,FleetGuid,CorvetteGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] FleetCorvette fleetCorvette) {
+            if (id != fleetCorvette.FleetCorvetteGuid) {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid) {
+                try {
+                    _context.Update(fleetCorvette);
+                    await _context.SaveChangesAsync();
+                } catch (DbUpdateConcurrencyException) {
+                    if (!FleetCorvetteExists(fleetCorvette.FleetCorvetteGuid)) {
+                        return NotFound();
+                    } else {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["ArmorGuid"] = new SelectList(_context.Armors, "ArmorGuid", "Title", fleetCorvette.ArmorGuid);
+            ViewData["CorvetteGuid"] = new SelectList(_context.Corvettes, "CorvetteGuid", "Class", fleetCorvette.CorvetteGuid);
+            ViewData["FleetGuid"] = new SelectList(_context.Fleets, "FleetGuid", "Name", fleetCorvette.FleetGuid);
+            ViewData["FuelSystemGuid"] = new SelectList(_context.FuelSystems, "FuelSystemGuid", "Title", fleetCorvette.FuelSystemGuid);
+            ViewData["PayloadGuid"] = new SelectList(_context.Payloads, "PayloadGuid", "Title", fleetCorvette.PayloadGuid);
+            ViewData["PointDefenseSystemGuid"] = new SelectList(_context.PointDefenseSystems, "PointDefenseSystemGuid", "Title", fleetCorvette.PointDefenseSystemGuid);
+            ViewData["ThrusterGuid"] = new SelectList(_context.Thrusters, "ThrusterGuid", "Title", fleetCorvette.ThrusterGuid);
+            ViewData["WeaponFrameGuid"] = new SelectList(_context.WeaponFrames, "WeaponFrameGuid", "Title", fleetCorvette.WeaponFrameGuid);
+            return View(fleetCorvette);
+        }
+
+        // GET: FleetCorvettes/Delete/5
+        public async Task<IActionResult> Delete(Guid? id) {
+            if (id == null || _context.FleetCorvettes == null) {
+                return NotFound();
+            }
+
+            var fleetCorvette = await _context.FleetCorvettes
+                .Include(f => f.Armor)
+                .Include(f => f.Corvette)
+                .Include(f => f.Fleet)
+                .Include(f => f.FuelSystem)
+                .Include(f => f.Payload)
+                .Include(f => f.PointDefenseSystem)
+                .Include(f => f.Thruster)
+                .Include(f => f.WeaponFrame)
+                .FirstOrDefaultAsync(m => m.FleetCorvetteGuid == id);
+            if (fleetCorvette == null) {
+                return NotFound();
+            }
+
+            return View(fleetCorvette);
+        }
+
+        // POST: FleetCorvettes/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Guid id) {
+            if (_context.FleetCorvettes == null) {
+                return Problem("Entity set 'CelestialFrontier_DevContext.FleetCorvettes'  is null.");
+            }
+            var fleetCorvette = await _context.FleetCorvettes.FindAsync(id);
+            if (fleetCorvette != null) {
+                _context.FleetCorvettes.Remove(fleetCorvette);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool FleetCorvetteExists(Guid id) {
+            return _context.FleetCorvettes.Any(e => e.FleetCorvetteGuid == id);
+        }
+    }
+}

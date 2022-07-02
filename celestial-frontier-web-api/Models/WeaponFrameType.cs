@@ -12,7 +12,7 @@ namespace celestial_frontier_web_api.Models
         }
 
         public Guid WeaponFrameTypeGuid { get; set; }
-        public string Text { get; set; } = null!;
+        public string Text { get; set; }
 
         public virtual ICollection<Payload> Payloads { get; set; }
         public virtual ICollection<WeaponFrame> WeaponFrames { get; set; }

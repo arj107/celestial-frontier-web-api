@@ -7,37 +7,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using celestial_frontier_web_api.Models;
 
-namespace celestial_frontier_web_api.WebControllers
-{
-    public class FuelSystemsController : Controller
-    {
-        private readonly CelestialFrontierContext _context;
+namespace celestial_frontier_web_api.WebControllers {
+    public class FuelSystemsController : Controller {
+        private readonly CelestialFrontier_DevContext _context;
 
-        public FuelSystemsController(CelestialFrontierContext context)
-        {
+        public FuelSystemsController(CelestialFrontier_DevContext context) {
             _context = context;
         }
 
         // GET: FuelSystems
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             var celestialFrontierContext = _context.FuelSystems.Include(f => f.SpaceshipType);
             return View(await celestialFrontierContext.ToListAsync());
         }
 
         // GET: FuelSystems/Details/5
-        public async Task<IActionResult> Details(Guid? id)
-        {
-            if (id == null || _context.FuelSystems == null)
-            {
+        public async Task<IActionResult> Details(Guid? id) {
+            if (id == null || _context.FuelSystems == null) {
                 return NotFound();
             }
 
             var fuelSystem = await _context.FuelSystems
                 .Include(f => f.SpaceshipType)
                 .FirstOrDefaultAsync(m => m.FuelSystemGuid == id);
-            if (fuelSystem == null)
-            {
+            if (fuelSystem == null) {
                 return NotFound();
             }
 
@@ -45,8 +38,7 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: FuelSystems/Create
-        public IActionResult Create()
-        {
+        public IActionResult Create() {
             ViewData["SpaceshipTypeGuid"] = new SelectList(_context.SpaceshipTypes, "SpaceshipTypeGuid", "Text");
             return View();
         }
@@ -56,10 +48,8 @@ namespace celestial_frontier_web_api.WebControllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FuelSystemGuid,SpaceshipTypeGuid,ModulePointsCost,Mass,SpecificHeatCapacity,FuelCapacity,FuelRegenerationRate,Title,Description")] FuelSystem fuelSystem)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create([Bind("FuelSystemGuid,SpaceshipTypeGuid,ModulePointsCost,Mass,SpecificHeatCapacity,FuelCapacity,FuelRegenerationRate,Title,Description")] FuelSystem fuelSystem) {
+            if (ModelState.IsValid) {
                 fuelSystem.FuelSystemGuid = Guid.NewGuid();
                 _context.Add(fuelSystem);
                 await _context.SaveChangesAsync();
@@ -70,16 +60,13 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: FuelSystems/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null || _context.FuelSystems == null)
-            {
+        public async Task<IActionResult> Edit(Guid? id) {
+            if (id == null || _context.FuelSystems == null) {
                 return NotFound();
             }
 
             var fuelSystem = await _context.FuelSystems.FindAsync(id);
-            if (fuelSystem == null)
-            {
+            if (fuelSystem == null) {
                 return NotFound();
             }
             ViewData["SpaceshipTypeGuid"] = new SelectList(_context.SpaceshipTypes, "SpaceshipTypeGuid", "Text", fuelSystem.SpaceshipTypeGuid);
@@ -91,28 +78,19 @@ namespace celestial_frontier_web_api.WebControllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("FuelSystemGuid,SpaceshipTypeGuid,ModulePointsCost,Mass,SpecificHeatCapacity,FuelCapacity,FuelRegenerationRate,Title,Description")] FuelSystem fuelSystem)
-        {
-            if (id != fuelSystem.FuelSystemGuid)
-            {
+        public async Task<IActionResult> Edit(Guid id, [Bind("FuelSystemGuid,SpaceshipTypeGuid,ModulePointsCost,Mass,SpecificHeatCapacity,FuelCapacity,FuelRegenerationRate,Title,Description")] FuelSystem fuelSystem) {
+            if (id != fuelSystem.FuelSystemGuid) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            if (ModelState.IsValid) {
+                try {
                     _context.Update(fuelSystem);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FuelSystemExists(fuelSystem.FuelSystemGuid))
-                    {
+                } catch (DbUpdateConcurrencyException) {
+                    if (!FuelSystemExists(fuelSystem.FuelSystemGuid)) {
                         return NotFound();
-                    }
-                    else
-                    {
+                    } else {
                         throw;
                     }
                 }
@@ -123,18 +101,15 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: FuelSystems/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null || _context.FuelSystems == null)
-            {
+        public async Task<IActionResult> Delete(Guid? id) {
+            if (id == null || _context.FuelSystems == null) {
                 return NotFound();
             }
 
             var fuelSystem = await _context.FuelSystems
                 .Include(f => f.SpaceshipType)
                 .FirstOrDefaultAsync(m => m.FuelSystemGuid == id);
-            if (fuelSystem == null)
-            {
+            if (fuelSystem == null) {
                 return NotFound();
             }
 
@@ -144,25 +119,21 @@ namespace celestial_frontier_web_api.WebControllers
         // POST: FuelSystems/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            if (_context.FuelSystems == null)
-            {
-                return Problem("Entity set 'CelestialFrontierContext.FuelSystems'  is null.");
+        public async Task<IActionResult> DeleteConfirmed(Guid id) {
+            if (_context.FuelSystems == null) {
+                return Problem("Entity set 'CelestialFrontier_DevContext.FuelSystems'  is null.");
             }
             var fuelSystem = await _context.FuelSystems.FindAsync(id);
-            if (fuelSystem != null)
-            {
+            if (fuelSystem != null) {
                 _context.FuelSystems.Remove(fuelSystem);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool FuelSystemExists(Guid id)
-        {
-          return (_context.FuelSystems?.Any(e => e.FuelSystemGuid == id)).GetValueOrDefault();
+        private bool FuelSystemExists(Guid id) {
+            return (_context.FuelSystems?.Any(e => e.FuelSystemGuid == id)).GetValueOrDefault();
         }
     }
 }

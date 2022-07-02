@@ -13,6 +13,7 @@
         public string Title { get; set; } = null!;
         public string Description { get; set; } = null!;
 
+        public WeaponFrameDto() {}
         public WeaponFrameDto(WeaponFrame weaponFrame) {
             this.WeaponFrameGuid = weaponFrame.WeaponFrameGuid;
             this.WeaponFrameType = new WeaponFrameTypeDto(weaponFrame.WeaponFrameType);

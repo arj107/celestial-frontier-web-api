@@ -7,37 +7,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using celestial_frontier_web_api.Models;
 
-namespace celestial_frontier_web_api.WebControllers
-{
-    public class PointDefenseSystemsController : Controller
-    {
-        private readonly CelestialFrontierContext _context;
+namespace celestial_frontier_web_api.WebControllers {
+    public class PointDefenseSystemsController : Controller {
+        private readonly CelestialFrontier_DevContext _context;
 
-        public PointDefenseSystemsController(CelestialFrontierContext context)
-        {
+        public PointDefenseSystemsController(CelestialFrontier_DevContext context) {
             _context = context;
         }
 
         // GET: PointDefenseSystems
-        public async Task<IActionResult> Index()
-        {
+        public async Task<IActionResult> Index() {
             var celestialFrontierContext = _context.PointDefenseSystems.Include(p => p.PowerLevel);
             return View(await celestialFrontierContext.ToListAsync());
         }
 
         // GET: PointDefenseSystems/Details/5
-        public async Task<IActionResult> Details(Guid? id)
-        {
-            if (id == null || _context.PointDefenseSystems == null)
-            {
+        public async Task<IActionResult> Details(Guid? id) {
+            if (id == null || _context.PointDefenseSystems == null) {
                 return NotFound();
             }
 
             var pointDefenseSystem = await _context.PointDefenseSystems
                 .Include(p => p.PowerLevel)
                 .FirstOrDefaultAsync(m => m.PointDefenseSystemGuid == id);
-            if (pointDefenseSystem == null)
-            {
+            if (pointDefenseSystem == null) {
                 return NotFound();
             }
 
@@ -45,8 +38,7 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: PointDefenseSystems/Create
-        public IActionResult Create()
-        {
+        public IActionResult Create() {
             ViewData["PowerLevelGuid"] = new SelectList(_context.PowerLevels, "PowerLevelGuid", "Text");
             return View();
         }
@@ -56,10 +48,8 @@ namespace celestial_frontier_web_api.WebControllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PointDefenseSystemGuid,PowerLevelGuid,ModulePointsCost,Mass,SpecificHeatCapacity,CountermeasureCapacity,CountermeasureRegenerationRate,Efficiency,Title,Description")] PointDefenseSystem pointDefenseSystem)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create([Bind("PointDefenseSystemGuid,PowerLevelGuid,ModulePointsCost,Mass,SpecificHeatCapacity,CountermeasureCapacity,CountermeasureRegenerationRate,Efficiency,Title,Description")] PointDefenseSystem pointDefenseSystem) {
+            if (ModelState.IsValid) {
                 pointDefenseSystem.PointDefenseSystemGuid = Guid.NewGuid();
                 _context.Add(pointDefenseSystem);
                 await _context.SaveChangesAsync();
@@ -70,16 +60,13 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: PointDefenseSystems/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null || _context.PointDefenseSystems == null)
-            {
+        public async Task<IActionResult> Edit(Guid? id) {
+            if (id == null || _context.PointDefenseSystems == null) {
                 return NotFound();
             }
 
             var pointDefenseSystem = await _context.PointDefenseSystems.FindAsync(id);
-            if (pointDefenseSystem == null)
-            {
+            if (pointDefenseSystem == null) {
                 return NotFound();
             }
             ViewData["PowerLevelGuid"] = new SelectList(_context.PowerLevels, "PowerLevelGuid", "Text", pointDefenseSystem.PowerLevelGuid);
@@ -91,28 +78,19 @@ namespace celestial_frontier_web_api.WebControllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("PointDefenseSystemGuid,PowerLevelGuid,ModulePointsCost,Mass,SpecificHeatCapacity,CountermeasureCapacity,CountermeasureRegenerationRate,Efficiency,Title,Description")] PointDefenseSystem pointDefenseSystem)
-        {
-            if (id != pointDefenseSystem.PointDefenseSystemGuid)
-            {
+        public async Task<IActionResult> Edit(Guid id, [Bind("PointDefenseSystemGuid,PowerLevelGuid,ModulePointsCost,Mass,SpecificHeatCapacity,CountermeasureCapacity,CountermeasureRegenerationRate,Efficiency,Title,Description")] PointDefenseSystem pointDefenseSystem) {
+            if (id != pointDefenseSystem.PointDefenseSystemGuid) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            if (ModelState.IsValid) {
+                try {
                     _context.Update(pointDefenseSystem);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PointDefenseSystemExists(pointDefenseSystem.PointDefenseSystemGuid))
-                    {
+                } catch (DbUpdateConcurrencyException) {
+                    if (!PointDefenseSystemExists(pointDefenseSystem.PointDefenseSystemGuid)) {
                         return NotFound();
-                    }
-                    else
-                    {
+                    } else {
                         throw;
                     }
                 }
@@ -123,18 +101,15 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: PointDefenseSystems/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null || _context.PointDefenseSystems == null)
-            {
+        public async Task<IActionResult> Delete(Guid? id) {
+            if (id == null || _context.PointDefenseSystems == null) {
                 return NotFound();
             }
 
             var pointDefenseSystem = await _context.PointDefenseSystems
                 .Include(p => p.PowerLevel)
                 .FirstOrDefaultAsync(m => m.PointDefenseSystemGuid == id);
-            if (pointDefenseSystem == null)
-            {
+            if (pointDefenseSystem == null) {
                 return NotFound();
             }
 
@@ -144,25 +119,21 @@ namespace celestial_frontier_web_api.WebControllers
         // POST: PointDefenseSystems/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            if (_context.PointDefenseSystems == null)
-            {
-                return Problem("Entity set 'CelestialFrontierContext.PointDefenseSystems'  is null.");
+        public async Task<IActionResult> DeleteConfirmed(Guid id) {
+            if (_context.PointDefenseSystems == null) {
+                return Problem("Entity set 'CelestialFrontier_DevContext.PointDefenseSystems'  is null.");
             }
             var pointDefenseSystem = await _context.PointDefenseSystems.FindAsync(id);
-            if (pointDefenseSystem != null)
-            {
+            if (pointDefenseSystem != null) {
                 _context.PointDefenseSystems.Remove(pointDefenseSystem);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PointDefenseSystemExists(Guid id)
-        {
-          return (_context.PointDefenseSystems?.Any(e => e.PointDefenseSystemGuid == id)).GetValueOrDefault();
+        private bool PointDefenseSystemExists(Guid id) {
+            return (_context.PointDefenseSystems?.Any(e => e.PointDefenseSystemGuid == id)).GetValueOrDefault();
         }
     }
 }

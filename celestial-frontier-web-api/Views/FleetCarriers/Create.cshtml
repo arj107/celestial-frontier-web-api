@@ -1,0 +1,65 @@
+﻿@model celestial_frontier_web_api.Models.FleetCarrier
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>FleetCarrier</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FleetCarrierGuid" class="control-label"></label>
+                <input asp-for="FleetCarrierGuid" class="form-control" value="@Guid.NewGuid()" disabled/>
+                <span asp-validation-for="FleetCarrierGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FleetGuid" class="control-label">Fleet</label>
+                <select asp-for="FleetGuid" class ="form-control" asp-items="ViewBag.FleetGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarrierGuid" class="control-label">Carrier</label>
+                <select asp-for="CarrierGuid" class ="form-control" asp-items="ViewBag.CarrierGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="WeaponFrameGuid" class="control-label">WeaponFrame</label>
+                <select asp-for="WeaponFrameGuid" class ="form-control" asp-items="ViewBag.WeaponFrameGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PayloadGuid" class="control-label">Payload</label>
+                <select asp-for="PayloadGuid" class ="form-control" asp-items="ViewBag.PayloadGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArmorGuid" class="control-label">Armor</label>
+                <select asp-for="ArmorGuid" class ="form-control" asp-items="ViewBag.ArmorGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PointDefenseSystemGuid" class="control-label">PointDefenseSystem</label>
+                <select asp-for="PointDefenseSystemGuid" class ="form-control" asp-items="ViewBag.PointDefenseSystemGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FuelSystemGuid" class="control-label">FuelSystem</label>
+                <select asp-for="FuelSystemGuid" class ="form-control" asp-items="ViewBag.FuelSystemGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThrusterGuid" class="control-label">Thruster</label>
+                <select asp-for="ThrusterGuid" class ="form-control" asp-items="ViewBag.ThrusterGuid"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

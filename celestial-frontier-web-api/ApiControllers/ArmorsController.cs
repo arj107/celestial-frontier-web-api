@@ -14,9 +14,9 @@ namespace celestial_frontier_web_api.ApiControllers
     [ApiController]
     public class ArmorsController : ControllerBase
     {
-        private readonly CelestialFrontierContext _context;
+        private readonly CelestialFrontier_DevContext _context;
 
-        public ArmorsController(CelestialFrontierContext context)
+        public ArmorsController(CelestialFrontier_DevContext context)
         {
             _context = context;
         }
@@ -98,7 +98,7 @@ namespace celestial_frontier_web_api.ApiControllers
         {
           if (_context.Armors == null)
           {
-              return Problem("Entity set 'CelestialFrontierContext.Armors'  is null.");
+              return Problem("Entity set 'CelestialFrontier_DevContext.Armors'  is null.");
           }
             _context.Armors.Add(armor);
             try

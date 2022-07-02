@@ -14,9 +14,9 @@ namespace celestial_frontier_web_api.ApiControllers
     [ApiController]
     public class PointDefenseSystemsController : ControllerBase
     {
-        private readonly CelestialFrontierContext _context;
+        private readonly CelestialFrontier_DevContext _context;
 
-        public PointDefenseSystemsController(CelestialFrontierContext context)
+        public PointDefenseSystemsController(CelestialFrontier_DevContext context)
         {
             _context = context;
         }
@@ -98,7 +98,7 @@ namespace celestial_frontier_web_api.ApiControllers
         {
           if (_context.PointDefenseSystems == null)
           {
-              return Problem("Entity set 'CelestialFrontierContext.PointDefenseSystems'  is null.");
+              return Problem("Entity set 'CelestialFrontier_DevContext.PointDefenseSystems'  is null.");
           }
             _context.PointDefenseSystems.Add(pointDefenseSystem);
             try

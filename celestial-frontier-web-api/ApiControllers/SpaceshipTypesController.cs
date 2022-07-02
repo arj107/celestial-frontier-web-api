@@ -14,9 +14,9 @@ namespace celestial_frontier_web_api.ApiControllers
     [ApiController]
     public class SpaceshipTypesController : ControllerBase
     {
-        private readonly CelestialFrontierContext _context;
+        private readonly CelestialFrontier_DevContext _context;
 
-        public SpaceshipTypesController(CelestialFrontierContext context)
+        public SpaceshipTypesController(CelestialFrontier_DevContext context)
         {
             _context = context;
         }
@@ -97,7 +97,7 @@ namespace celestial_frontier_web_api.ApiControllers
         {
           if (_context.SpaceshipTypes == null)
           {
-              return Problem("Entity set 'CelestialFrontierContext.SpaceshipTypes'  is null.");
+              return Problem("Entity set 'CelestialFrontier_DevContext.SpaceshipTypes'  is null.");
           }
             _context.SpaceshipTypes.Add(spaceshipType);
             try

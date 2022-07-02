@@ -1,0 +1,89 @@
+﻿@model IEnumerable<celestial_frontier_web_api.Models.FleetDestroyer>
+
+@{
+    ViewData["Title"] = "Fleet Destroyers";
+}
+
+<h1>Fleet Destroyers</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Armor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destroyer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fleet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FuelSystem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payload1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Payload2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PointDefenseSystem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Thruster)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeaponFrame1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeaponFrame2)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Armor.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destroyer.Class)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fleet.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FuelSystem.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payload1.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payload2.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PointDefenseSystem.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Thruster.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeaponFrame1.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeaponFrame2.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FleetDestroyerGuid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FleetDestroyerGuid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FleetDestroyerGuid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -7,37 +7,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using celestial_frontier_web_api.Models;
 
-namespace celestial_frontier_web_api.WebControllers
-{
-    public class PowerLevelsController : Controller
-    {
-        private readonly CelestialFrontierContext _context;
+namespace celestial_frontier_web_api.WebControllers {
+    public class PowerLevelsController : Controller {
+        private readonly CelestialFrontier_DevContext _context;
 
-        public PowerLevelsController(CelestialFrontierContext context)
-        {
+        public PowerLevelsController(CelestialFrontier_DevContext context) {
             _context = context;
         }
 
         // GET: PowerLevels
-        public async Task<IActionResult> Index()
-        {
-              return _context.PowerLevels != null ? 
-                          View(await _context.PowerLevels.ToListAsync()) :
-                          Problem("Entity set 'CelestialFrontierContext.PowerLevels'  is null.");
+        public async Task<IActionResult> Index() {
+            return _context.PowerLevels != null ?
+                        View(await _context.PowerLevels.ToListAsync()) :
+                        Problem("Entity set 'CelestialFrontier_DevContext.PowerLevels'  is null.");
         }
 
         // GET: PowerLevels/Details/5
-        public async Task<IActionResult> Details(Guid? id)
-        {
-            if (id == null || _context.PowerLevels == null)
-            {
+        public async Task<IActionResult> Details(Guid? id) {
+            if (id == null || _context.PowerLevels == null) {
                 return NotFound();
             }
 
             var powerLevel = await _context.PowerLevels
                 .FirstOrDefaultAsync(m => m.PowerLevelGuid == id);
-            if (powerLevel == null)
-            {
+            if (powerLevel == null) {
                 return NotFound();
             }
 
@@ -45,8 +38,7 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: PowerLevels/Create
-        public IActionResult Create()
-        {
+        public IActionResult Create() {
             return View();
         }
 
@@ -55,10 +47,8 @@ namespace celestial_frontier_web_api.WebControllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PowerLevelGuid,Text")] PowerLevel powerLevel)
-        {
-            if (ModelState.IsValid)
-            {
+        public async Task<IActionResult> Create([Bind("PowerLevelGuid,Text")] PowerLevel powerLevel) {
+            if (ModelState.IsValid) {
                 powerLevel.PowerLevelGuid = Guid.NewGuid();
                 _context.Add(powerLevel);
                 await _context.SaveChangesAsync();
@@ -68,16 +58,13 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: PowerLevels/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
-        {
-            if (id == null || _context.PowerLevels == null)
-            {
+        public async Task<IActionResult> Edit(Guid? id) {
+            if (id == null || _context.PowerLevels == null) {
                 return NotFound();
             }
 
             var powerLevel = await _context.PowerLevels.FindAsync(id);
-            if (powerLevel == null)
-            {
+            if (powerLevel == null) {
                 return NotFound();
             }
             return View(powerLevel);
@@ -88,28 +75,19 @@ namespace celestial_frontier_web_api.WebControllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("PowerLevelGuid,Text")] PowerLevel powerLevel)
-        {
-            if (id != powerLevel.PowerLevelGuid)
-            {
+        public async Task<IActionResult> Edit(Guid id, [Bind("PowerLevelGuid,Text")] PowerLevel powerLevel) {
+            if (id != powerLevel.PowerLevelGuid) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            if (ModelState.IsValid) {
+                try {
                     _context.Update(powerLevel);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PowerLevelExists(powerLevel.PowerLevelGuid))
-                    {
+                } catch (DbUpdateConcurrencyException) {
+                    if (!PowerLevelExists(powerLevel.PowerLevelGuid)) {
                         return NotFound();
-                    }
-                    else
-                    {
+                    } else {
                         throw;
                     }
                 }
@@ -119,17 +97,14 @@ namespace celestial_frontier_web_api.WebControllers
         }
 
         // GET: PowerLevels/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
-        {
-            if (id == null || _context.PowerLevels == null)
-            {
+        public async Task<IActionResult> Delete(Guid? id) {
+            if (id == null || _context.PowerLevels == null) {
                 return NotFound();
             }
 
             var powerLevel = await _context.PowerLevels
                 .FirstOrDefaultAsync(m => m.PowerLevelGuid == id);
-            if (powerLevel == null)
-            {
+            if (powerLevel == null) {
                 return NotFound();
             }
 
@@ -139,25 +114,21 @@ namespace celestial_frontier_web_api.WebControllers
         // POST: PowerLevels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
-        {
-            if (_context.PowerLevels == null)
-            {
-                return Problem("Entity set 'CelestialFrontierContext.PowerLevels'  is null.");
+        public async Task<IActionResult> DeleteConfirmed(Guid id) {
+            if (_context.PowerLevels == null) {
+                return Problem("Entity set 'CelestialFrontier_DevContext.PowerLevels'  is null.");
             }
             var powerLevel = await _context.PowerLevels.FindAsync(id);
-            if (powerLevel != null)
-            {
+            if (powerLevel != null) {
                 _context.PowerLevels.Remove(powerLevel);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PowerLevelExists(Guid id)
-        {
-          return (_context.PowerLevels?.Any(e => e.PowerLevelGuid == id)).GetValueOrDefault();
+        private bool PowerLevelExists(Guid id) {
+            return (_context.PowerLevels?.Any(e => e.PowerLevelGuid == id)).GetValueOrDefault();
         }
     }
 }
