@@ -30,7 +30,7 @@
         public string Description {
             get; set;
         }
-        public int CrewCapacity {
+        public int BaseCrewCost {
             get; set;
         }
         public int ModulePointLimit {

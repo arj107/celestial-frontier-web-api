@@ -5,6 +5,7 @@
         public WeaponFrameTypeDto WeaponFrameType { get; set; } = null!;
         public PowerLevelDto PowerLevel { get; set; } = null!;
         public int ModulePointsCost { get; set; }
+        public double Velocity { get; set; }
         public double KineticDamageBias { get; set; }
         public double CounterSusceptibility { get; set; }
         public int BaseDamage { get; set; }
@@ -19,6 +20,7 @@
             this.WeaponFrameType = new WeaponFrameTypeDto(payload.WeaponFrameType);
             this.PowerLevel = new PowerLevelDto(payload.PowerLevel);
             this.ModulePointsCost = payload.ModulePointsCost;
+            this.Velocity = payload.Velocity;
             this.KineticDamageBias = payload.KineticDamageBias;
             this.CounterSusceptibility = payload.CounterSusceptibility;
             this.BaseDamage = payload.BaseDamage;

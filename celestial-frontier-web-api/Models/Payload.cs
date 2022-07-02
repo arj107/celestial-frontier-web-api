@@ -22,6 +22,7 @@ namespace celestial_frontier_web_api.Models
         public Guid WeaponFrameTypeGuid { get; set; }
         public Guid PowerLevelGuid { get; set; }
         public int ModulePointsCost { get; set; }
+        public double Velocity { get; set; }
         public double KineticDamageBias { get; set; }
         public double CounterSusceptibility { get; set; }
         public int BaseDamage { get; set; }

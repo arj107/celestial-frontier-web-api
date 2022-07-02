@@ -3,6 +3,7 @@
         public Guid FleetGuid { get; set; }
         public UserDto User { get; set; }
         public string Name { get; set; }
+        public int CrewCapacity { get; set; }
         public ICollection<FleetBattlecruiserDto> FleetBattlecruisers { get; set; }
         public ICollection<FleetCarrierDto> FleetCarriers { get; set; }
         public ICollection<FleetCorvetteDto> FleetCorvettes { get; set; }
@@ -15,6 +16,7 @@
             this.FleetGuid = fleet.FleetGuid;
             this.User = new UserDto(fleet.User);
             this.Name = fleet.Name;
+            this.CrewCapacity = fleet.CrewCapacity;
         }
     }
 }

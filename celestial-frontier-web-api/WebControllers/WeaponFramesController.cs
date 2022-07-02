@@ -50,7 +50,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WeaponFrameGuid,WeaponFrameTypeGuid,PowerLevelGuid,ModulePointsCost,Mass,SpecificHeatCapacity,BaseMagSize,BaseAccuracyModifier,BaseTurnsToArm,BaseCriticalHitChance,Title,Description")] WeaponFrame weaponFrame) {
+        public async Task<IActionResult> Create([Bind("WeaponFrameGuid,WeaponFrameTypeGuid,PowerLevelGuid,ModulePointsCost,Mass,SpecificHeatCapacity,BaseMagSize,TargetingEfficiency,OptimalRange,EffectiveRange,BaseCriticalHitChance,Title,Description")] WeaponFrame weaponFrame) {
             if (ModelState.IsValid) {
                 weaponFrame.WeaponFrameGuid = Guid.NewGuid();
                 _context.Add(weaponFrame);
@@ -82,7 +82,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("WeaponFrameGuid,WeaponFrameTypeGuid,PowerLevelGuid,ModulePointsCost,Mass,SpecificHeatCapacity,BaseMagSize,BaseAccuracyModifier,BaseTurnsToArm,BaseCriticalHitChance,Title,Description")] WeaponFrame weaponFrame) {
+        public async Task<IActionResult> Edit(Guid id, [Bind("WeaponFrameGuid,WeaponFrameTypeGuid,PowerLevelGuid,ModulePointsCost,Mass,SpecificHeatCapacity,BaseMagSize,TargetingEfficiency,OptimalRange,EffectiveRange,BaseCriticalHitChance,Title,Description")] WeaponFrame weaponFrame) {
             if (id != weaponFrame.WeaponFrameGuid) {
                 return NotFound();
             }

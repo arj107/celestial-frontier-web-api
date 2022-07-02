@@ -52,7 +52,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PayloadGuid,PayloadTypeGuid,WeaponFrameTypeGuid,PowerLevelGuid,ModulePointsCost,KineticDamageBias,CounterSusceptibility,BaseDamage,BaseCriticalHitMultiplier,Title,Description")] Payload payload) {
+        public async Task<IActionResult> Create([Bind("PayloadGuid,PayloadTypeGuid,WeaponFrameTypeGuid,PowerLevelGuid,ModulePointsCost,Velocity,KineticDamageBias,CounterSusceptibility,BaseDamage,BaseCriticalHitMultiplier,Title,Description")] Payload payload) {
             if (ModelState.IsValid) {
                 payload.PayloadGuid = Guid.NewGuid();
                 _context.Add(payload);
@@ -86,7 +86,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("PayloadGuid,PayloadTypeGuid,WeaponFrameTypeGuid,PowerLevelGuid,ModulePointsCost,KineticDamageBias,CounterSusceptibility,BaseDamage,BaseCriticalHitMultiplier,Title,Description")] Payload payload) {
+        public async Task<IActionResult> Edit(Guid id, [Bind("PayloadGuid,PayloadTypeGuid,WeaponFrameTypeGuid,PowerLevelGuid,ModulePointsCost,Velocity,KineticDamageBias,CounterSusceptibility,BaseDamage,BaseCriticalHitMultiplier,Title,Description")] Payload payload) {
             if (id != payload.PayloadGuid) {
                 return NotFound();
             }

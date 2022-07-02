@@ -31,6 +31,9 @@
         public string Description {
             get; set;
         }
+        public int BaseCrewCost {
+            get; set;
+        }
         public int ModulePointLimit {
             get; set;
         }

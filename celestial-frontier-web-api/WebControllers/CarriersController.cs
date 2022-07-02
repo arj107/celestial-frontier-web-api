@@ -54,7 +54,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarrierGuid,SpaceshipTypeGuid,SpaceshipCategoryGuid,WeaponPowerLevelGuid,PointDefenseSystemPowerLevelGuid,Class,HullMass,SpecificHeatCapacity,BaseHullHealth,Description,BaseVigorCost,CrewCapacity,ModulePointLimit,FighterBays,CorvetteBays,FrigateBays,DestroyerBays")] Carrier carrier) {
+        public async Task<IActionResult> Create([Bind("CarrierGuid,SpaceshipTypeGuid,SpaceshipCategoryGuid,WeaponPowerLevelGuid,PointDefenseSystemPowerLevelGuid,Class,HullMass,SpecificHeatCapacity,BaseHullHealth,Description,BaseVigorCost,BaseCrewCost,ModulePointLimit,FighterBays,CorvetteBays,FrigateBays,DestroyerBays")] Carrier carrier) {
             if (ModelState.IsValid) {
                 carrier.CarrierGuid = Guid.NewGuid();
                 _context.Add(carrier);
@@ -90,7 +90,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("CarrierGuid,SpaceshipTypeGuid,SpaceshipCategoryGuid,WeaponPowerLevelGuid,PointDefenseSystemPowerLevelGuid,Class,HullMass,SpecificHeatCapacity,BaseHullHealth,Description,BaseVigorCost,CrewCapacity,ModulePointLimit,FighterBays,CorvetteBays,FrigateBays,DestroyerBays")] Carrier carrier) {
+        public async Task<IActionResult> Edit(Guid id, [Bind("CarrierGuid,SpaceshipTypeGuid,SpaceshipCategoryGuid,WeaponPowerLevelGuid,PointDefenseSystemPowerLevelGuid,Class,HullMass,SpecificHeatCapacity,BaseHullHealth,Description,BaseVigorCost,BaseCrewCost,ModulePointLimit,FighterBays,CorvetteBays,FrigateBays,DestroyerBays")] Carrier carrier) {
             if (id != carrier.CarrierGuid) {
                 return NotFound();
             }

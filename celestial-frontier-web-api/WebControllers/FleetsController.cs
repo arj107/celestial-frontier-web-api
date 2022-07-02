@@ -48,7 +48,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FleetGuid,UserGuid,Name")] Fleet fleet) {
+        public async Task<IActionResult> Create([Bind("FleetGuid,UserGuid,Name,CrewCapacity")] Fleet fleet) {
             if (ModelState.IsValid) {
                 fleet.FleetGuid = Guid.NewGuid();
                 _context.Add(fleet);
@@ -78,7 +78,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("FleetGuid,UserGuid,Name")] Fleet fleet) {
+        public async Task<IActionResult> Edit(Guid id, [Bind("FleetGuid,UserGuid,Name,CrewCapacity")] Fleet fleet) {
             if (id != fleet.FleetGuid) {
                 return NotFound();
             }

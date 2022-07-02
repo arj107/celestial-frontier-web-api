@@ -2,7 +2,7 @@
 using celestial_frontier_web_api.Models;
 using celestial_frontier_web_api.Models.DTOs;
 
-namespace celestial_frontier_web_api.Helpers {
+namespace celestial_frontier_web_api.Mappings {
     public class MappingProfile : Profile {
         public MappingProfile() {
             CreateMap<Armor, ArmorDto>();

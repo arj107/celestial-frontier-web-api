@@ -20,6 +20,7 @@ namespace celestial_frontier_web_api.Models
         public double SpecificHeatCapacity { get; set; }
         public int BaseHullHealth { get; set; }
         public string Description { get; set; }
+        public int BaseCrewCost { get; set; }
         public int ModulePointLimit { get; set; }
 
         public virtual PowerLevel PointDefenseSystemPowerLevel { get; set; }

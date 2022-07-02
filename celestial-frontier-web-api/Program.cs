@@ -1,4 +1,4 @@
-using celestial_frontier_web_api.Helpers;
+using celestial_frontier_web_api.Mappings;
 using celestial_frontier_web_api.Models;
 using celestial_frontier_web_api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

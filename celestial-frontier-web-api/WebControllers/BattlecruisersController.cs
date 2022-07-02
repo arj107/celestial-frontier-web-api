@@ -54,7 +54,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BattlecruiserGuid,SpaceshipTypeGuid,SpaceshipCategoryGuid,WeaponPowerLevelGuid,PointDefenseSystemPowerLevelGuid,Class,HullMass,SpecificHeatCapacity,BaseHullHealth,Description,BaseVigorCost,BaseCrewCost,ModulePointLimit")] Battlecruiser battlecruiser) {
+        public async Task<IActionResult> Create([Bind("BattlecruiserGuid,SpaceshipTypeGuid,SpaceshipCategoryGuid,WeaponPowerLevelGuid,PointDefenseSystemPowerLevelGuid,Class,HullMass,SpecificHeatCapacity,BaseHullHealth,Description,BaseCrewCost,ModulePointLimit")] Battlecruiser battlecruiser) {
             if (ModelState.IsValid) {
                 battlecruiser.BattlecruiserGuid = Guid.NewGuid();
                 _context.Add(battlecruiser);
@@ -90,7 +90,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("BattlecruiserGuid,SpaceshipTypeGuid,SpaceshipCategoryGuid,WeaponPowerLevelGuid,PointDefenseSystemPowerLevelGuid,Class,HullMass,SpecificHeatCapacity,BaseHullHealth,Description,BaseVigorCost,BaseCrewCost,ModulePointLimit")] Battlecruiser battlecruiser) {
+        public async Task<IActionResult> Edit(Guid id, [Bind("BattlecruiserGuid,SpaceshipTypeGuid,SpaceshipCategoryGuid,WeaponPowerLevelGuid,PointDefenseSystemPowerLevelGuid,Class,HullMass,SpecificHeatCapacity,BaseHullHealth,Description,BaseCrewCost,ModulePointLimit")] Battlecruiser battlecruiser) {
             if (id != battlecruiser.BattlecruiserGuid) {
                 return NotFound();
             }

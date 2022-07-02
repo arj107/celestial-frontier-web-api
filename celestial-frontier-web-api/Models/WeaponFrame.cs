@@ -24,8 +24,9 @@ namespace celestial_frontier_web_api.Models
         public int Mass { get; set; }
         public double SpecificHeatCapacity { get; set; }
         public int BaseMagSize { get; set; }
-        public double BaseAccuracyModifier { get; set; }
-        public int BaseTurnsToArm { get; set; }
+        public double TargetingEfficiency { get; set; }
+        public int OptimalRange { get; set; }
+        public int EffectiveRange { get; set; }
         public double BaseCriticalHitChance { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
