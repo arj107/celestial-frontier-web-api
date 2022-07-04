@@ -18,10 +18,15 @@ namespace celestial_frontier_web_api.Models
 
         public virtual DbSet<Armor> Armors { get; set; }
         public virtual DbSet<Battlecruiser> Battlecruisers { get; set; }
+        public virtual DbSet<BattlecruiserConfiguration> BattlecruiserConfigurations { get; set; }
         public virtual DbSet<Carrier> Carriers { get; set; }
+        public virtual DbSet<CarrierConfiguration> CarrierConfigurations { get; set; }
         public virtual DbSet<Corvette> Corvettes { get; set; }
+        public virtual DbSet<CorvetteConfiguration> CorvetteConfigurations { get; set; }
         public virtual DbSet<Destroyer> Destroyers { get; set; }
+        public virtual DbSet<DestroyerConfiguration> DestroyerConfigurations { get; set; }
         public virtual DbSet<Fighter> Fighters { get; set; }
+        public virtual DbSet<FighterConfiguration> FighterConfigurations { get; set; }
         public virtual DbSet<Fleet> Fleets { get; set; }
         public virtual DbSet<FleetBattlecruiser> FleetBattlecruisers { get; set; }
         public virtual DbSet<FleetCarrier> FleetCarriers { get; set; }
@@ -30,6 +35,7 @@ namespace celestial_frontier_web_api.Models
         public virtual DbSet<FleetFighter> FleetFighters { get; set; }
         public virtual DbSet<FleetFrigate> FleetFrigates { get; set; }
         public virtual DbSet<Frigate> Frigates { get; set; }
+        public virtual DbSet<FrigateConfiguration> FrigateConfigurations { get; set; }
         public virtual DbSet<FuelSystem> FuelSystems { get; set; }
         public virtual DbSet<Payload> Payloads { get; set; }
         public virtual DbSet<PayloadType> PayloadTypes { get; set; }
@@ -109,6 +115,73 @@ namespace celestial_frontier_web_api.Models
                     .HasConstraintName("FK_Battlecruisers(Weapons)_PowerLevels");
             });
 
+            modelBuilder.Entity<BattlecruiserConfiguration>(entity =>
+            {
+                entity.HasKey(e => e.BattlecruiserConfigurationGuid);
+
+                entity.Property(e => e.BattlecruiserConfigurationGuid).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Armor)
+                    .WithMany(p => p.BattlecruiserConfigurations)
+                    .HasForeignKey(d => d.ArmorGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_BattlecruiserConfigurations_Armors");
+
+                entity.HasOne(d => d.Battlecruiser)
+                    .WithMany(p => p.BattlecruiserConfigurations)
+                    .HasForeignKey(d => d.BattlecruiserGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_BattlecruiserConfigurations_Battlecruisers");
+
+                entity.HasOne(d => d.FuelSystem)
+                    .WithMany(p => p.BattlecruiserConfigurations)
+                    .HasForeignKey(d => d.FuelSystemGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_BattlecruiserConfigurations_FuelSystems");
+
+                entity.HasOne(d => d.Payload1)
+                    .WithMany(p => p.BattlecruiserConfigurationPayload1s)
+                    .HasForeignKey(d => d.Payload1Guid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_BattlecruiserConfigurations_Payloads1");
+
+                entity.HasOne(d => d.Payload2)
+                    .WithMany(p => p.BattlecruiserConfigurationPayload2s)
+                    .HasForeignKey(d => d.Payload2Guid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_BattlecruiserConfigurations_Payloads2");
+
+                entity.HasOne(d => d.PointDefenseSystem)
+                    .WithMany(p => p.BattlecruiserConfigurations)
+                    .HasForeignKey(d => d.PointDefenseSystemGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_BattlecruiserConfigurations_PointDefenseSystems");
+
+                entity.HasOne(d => d.Thruster)
+                    .WithMany(p => p.BattlecruiserConfigurations)
+                    .HasForeignKey(d => d.ThrusterGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_BattlecruiserConfigurations_Thrusters");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.BattlecruiserConfigurations)
+                    .HasForeignKey(d => d.UserGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_BattlecruiserConfigurations_Users");
+
+                entity.HasOne(d => d.WeaponFrame1)
+                    .WithMany(p => p.BattlecruiserConfigurationWeaponFrame1s)
+                    .HasForeignKey(d => d.WeaponFrame1Guid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_BattlecruiserConfigurations_WeaponFrames1");
+
+                entity.HasOne(d => d.WeaponFrame2)
+                    .WithMany(p => p.BattlecruiserConfigurationWeaponFrame2s)
+                    .HasForeignKey(d => d.WeaponFrame2Guid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_BattlecruiserConfigurations_WeaponFrames2");
+            });
+
             modelBuilder.Entity<Carrier>(entity =>
             {
                 entity.HasKey(e => e.CarrierGuid);
@@ -144,6 +217,61 @@ namespace celestial_frontier_web_api.Models
                     .HasForeignKey(d => d.WeaponPowerLevelGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Carriers(Weapons)_PowerLevels");
+            });
+
+            modelBuilder.Entity<CarrierConfiguration>(entity =>
+            {
+                entity.HasKey(e => e.CarrierConfigurationGuid);
+
+                entity.Property(e => e.CarrierConfigurationGuid).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Armor)
+                    .WithMany(p => p.CarrierConfigurations)
+                    .HasForeignKey(d => d.ArmorGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CarrierConfigurations_Armors");
+
+                entity.HasOne(d => d.Carrier)
+                    .WithMany(p => p.CarrierConfigurations)
+                    .HasForeignKey(d => d.CarrierGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CarrierConfigurations_Carriers");
+
+                entity.HasOne(d => d.FuelSystem)
+                    .WithMany(p => p.CarrierConfigurations)
+                    .HasForeignKey(d => d.FuelSystemGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CarrierConfigurations_FuelSystems");
+
+                entity.HasOne(d => d.Payload)
+                    .WithMany(p => p.CarrierConfigurations)
+                    .HasForeignKey(d => d.PayloadGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CarrierConfigurations_Payloads");
+
+                entity.HasOne(d => d.PointDefenseSystem)
+                    .WithMany(p => p.CarrierConfigurations)
+                    .HasForeignKey(d => d.PointDefenseSystemGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CarrierConfigurations_PointDefenseSystems");
+
+                entity.HasOne(d => d.Thruster)
+                    .WithMany(p => p.CarrierConfigurations)
+                    .HasForeignKey(d => d.ThrusterGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CarrierConfigurations_Thrusters");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.CarrierConfigurations)
+                    .HasForeignKey(d => d.UserGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CarrierConfigurations_Users");
+
+                entity.HasOne(d => d.WeaponFrame)
+                    .WithMany(p => p.CarrierConfigurations)
+                    .HasForeignKey(d => d.WeaponFrameGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CarrierConfigurations_WeaponFrames");
             });
 
             modelBuilder.Entity<Corvette>(entity =>
@@ -183,6 +311,61 @@ namespace celestial_frontier_web_api.Models
                     .HasConstraintName("FK_Corvettes(Weapons)_PowerLevels");
             });
 
+            modelBuilder.Entity<CorvetteConfiguration>(entity =>
+            {
+                entity.HasKey(e => e.CorvetteConfigurationGuid);
+
+                entity.Property(e => e.CorvetteConfigurationGuid).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Armor)
+                    .WithMany(p => p.CorvetteConfigurations)
+                    .HasForeignKey(d => d.ArmorGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CorvetteConfigurations_Armors");
+
+                entity.HasOne(d => d.Corvette)
+                    .WithMany(p => p.CorvetteConfigurations)
+                    .HasForeignKey(d => d.CorvetteGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CorvetteConfigurations_Corvettes");
+
+                entity.HasOne(d => d.FuelSystem)
+                    .WithMany(p => p.CorvetteConfigurations)
+                    .HasForeignKey(d => d.FuelSystemGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CorvetteConfigurations_FuelSystems");
+
+                entity.HasOne(d => d.Payload)
+                    .WithMany(p => p.CorvetteConfigurations)
+                    .HasForeignKey(d => d.PayloadGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CorvetteConfigurations_Payloads");
+
+                entity.HasOne(d => d.PointDefenseSystem)
+                    .WithMany(p => p.CorvetteConfigurations)
+                    .HasForeignKey(d => d.PointDefenseSystemGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CorvetteConfigurations_PointDefenseSystems");
+
+                entity.HasOne(d => d.Thruster)
+                    .WithMany(p => p.CorvetteConfigurations)
+                    .HasForeignKey(d => d.ThrusterGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CorvetteConfigurations_Thrusters");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.CorvetteConfigurations)
+                    .HasForeignKey(d => d.UserGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CorvetteConfigurations_Users");
+
+                entity.HasOne(d => d.WeaponFrame)
+                    .WithMany(p => p.CorvetteConfigurations)
+                    .HasForeignKey(d => d.WeaponFrameGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CorvetteConfigurations_WeaponFrames");
+            });
+
             modelBuilder.Entity<Destroyer>(entity =>
             {
                 entity.HasKey(e => e.DestroyerGuid);
@@ -218,6 +401,73 @@ namespace celestial_frontier_web_api.Models
                     .HasForeignKey(d => d.WeaponPowerLevelGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Destroyers(Weapons)_PowerLevels");
+            });
+
+            modelBuilder.Entity<DestroyerConfiguration>(entity =>
+            {
+                entity.HasKey(e => e.DestroyerConfigurationGuid);
+
+                entity.Property(e => e.DestroyerConfigurationGuid).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Armor)
+                    .WithMany(p => p.DestroyerConfigurations)
+                    .HasForeignKey(d => d.ArmorGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DestroyerConfigurations_Armors");
+
+                entity.HasOne(d => d.Destroyer)
+                    .WithMany(p => p.DestroyerConfigurations)
+                    .HasForeignKey(d => d.DestroyerGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DestroyerConfigurations_Destroyers");
+
+                entity.HasOne(d => d.FuelSystem)
+                    .WithMany(p => p.DestroyerConfigurations)
+                    .HasForeignKey(d => d.FuelSystemGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DestroyerConfigurations_FuelSystems");
+
+                entity.HasOne(d => d.Payload1)
+                    .WithMany(p => p.DestroyerConfigurationPayload1s)
+                    .HasForeignKey(d => d.Payload1Guid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DestroyerConfigurations_Payloads");
+
+                entity.HasOne(d => d.Payload2)
+                    .WithMany(p => p.DestroyerConfigurationPayload2s)
+                    .HasForeignKey(d => d.Payload2Guid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DestroyerConfigurations_Payloads1");
+
+                entity.HasOne(d => d.PointDefenseSystem)
+                    .WithMany(p => p.DestroyerConfigurations)
+                    .HasForeignKey(d => d.PointDefenseSystemGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DestroyerConfigurations_PointDefenseSystems");
+
+                entity.HasOne(d => d.Thruster)
+                    .WithMany(p => p.DestroyerConfigurations)
+                    .HasForeignKey(d => d.ThrusterGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DestroyerConfigurations_Thrusters");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.DestroyerConfigurations)
+                    .HasForeignKey(d => d.UserGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DestroyerConfigurations_Users");
+
+                entity.HasOne(d => d.WeaponFrame1)
+                    .WithMany(p => p.DestroyerConfigurationWeaponFrame1s)
+                    .HasForeignKey(d => d.WeaponFrame1Guid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DestroyerConfigurations_WeaponFrames");
+
+                entity.HasOne(d => d.WeaponFrame2)
+                    .WithMany(p => p.DestroyerConfigurationWeaponFrame2s)
+                    .HasForeignKey(d => d.WeaponFrame2Guid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DestroyerConfigurations_WeaponFrames1");
             });
 
             modelBuilder.Entity<Fighter>(entity =>
@@ -257,6 +507,61 @@ namespace celestial_frontier_web_api.Models
                     .HasConstraintName("FK_Fighters(Weapons)_PowerLevels");
             });
 
+            modelBuilder.Entity<FighterConfiguration>(entity =>
+            {
+                entity.HasKey(e => e.FighterConfigurationGuid);
+
+                entity.Property(e => e.FighterConfigurationGuid).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Armor)
+                    .WithMany(p => p.FighterConfigurations)
+                    .HasForeignKey(d => d.ArmorGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FighterConfigurations_Armors");
+
+                entity.HasOne(d => d.Fighter)
+                    .WithMany(p => p.FighterConfigurations)
+                    .HasForeignKey(d => d.FighterGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FighterConfigurations_Fighters");
+
+                entity.HasOne(d => d.FuelSystem)
+                    .WithMany(p => p.FighterConfigurations)
+                    .HasForeignKey(d => d.FuelSystemGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FighterConfigurations_FuelSystems");
+
+                entity.HasOne(d => d.Payload)
+                    .WithMany(p => p.FighterConfigurations)
+                    .HasForeignKey(d => d.PayloadGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FighterConfigurations_Payloads");
+
+                entity.HasOne(d => d.PointDefenseSystem)
+                    .WithMany(p => p.FighterConfigurations)
+                    .HasForeignKey(d => d.PointDefenseSystemGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FighterConfigurations_PointDefenseSystems");
+
+                entity.HasOne(d => d.Thruster)
+                    .WithMany(p => p.FighterConfigurations)
+                    .HasForeignKey(d => d.ThrusterGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FighterConfigurations_Thrusters");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.FighterConfigurations)
+                    .HasForeignKey(d => d.UserGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FighterConfigurations_Users");
+
+                entity.HasOne(d => d.WeaponFrame)
+                    .WithMany(p => p.FighterConfigurations)
+                    .HasForeignKey(d => d.WeaponFrameGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FighterConfigurations_WeaponFrames");
+            });
+
             modelBuilder.Entity<Fleet>(entity =>
             {
                 entity.HasKey(e => e.FleetGuid);
@@ -276,69 +581,22 @@ namespace celestial_frontier_web_api.Models
 
             modelBuilder.Entity<FleetBattlecruiser>(entity =>
             {
-                entity.HasKey(e => e.FleetBattlecruiserGuid);
+                entity.HasKey(e => e.FleetBattlecruiserGuid)
+                    .HasName("PK_FleetBattlecruisers_1");
 
                 entity.Property(e => e.FleetBattlecruiserGuid).ValueGeneratedNever();
 
-                entity.HasOne(d => d.Armor)
+                entity.HasOne(d => d.BattlecruiserConfiguration)
                     .WithMany(p => p.FleetBattlecruisers)
-                    .HasForeignKey(d => d.ArmorGuid)
+                    .HasForeignKey(d => d.BattlecruiserConfigurationGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetBattlecruisers_Armors");
-
-                entity.HasOne(d => d.Battlecruiser)
-                    .WithMany(p => p.FleetBattlecruisers)
-                    .HasForeignKey(d => d.BattlecruiserGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetBattlecruisers_Battlecruisers");
+                    .HasConstraintName("FK_FleetBattlecruisers_BattlecruiserConfigurations");
 
                 entity.HasOne(d => d.Fleet)
                     .WithMany(p => p.FleetBattlecruisers)
                     .HasForeignKey(d => d.FleetGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetBattlecruisers_Fleets");
-
-                entity.HasOne(d => d.FuelSystem)
-                    .WithMany(p => p.FleetBattlecruisers)
-                    .HasForeignKey(d => d.FuelSystemGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetBattlecruisers_FuelSystems");
-
-                entity.HasOne(d => d.Payload1)
-                    .WithMany(p => p.FleetBattlecruiserPayload1s)
-                    .HasForeignKey(d => d.Payload1Guid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetBattlecruisers_Payloads1");
-
-                entity.HasOne(d => d.Payload2)
-                    .WithMany(p => p.FleetBattlecruiserPayload2s)
-                    .HasForeignKey(d => d.Payload2Guid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetBattlecruisers_Payloads2");
-
-                entity.HasOne(d => d.PointDefenseSystem)
-                    .WithMany(p => p.FleetBattlecruisers)
-                    .HasForeignKey(d => d.PointDefenseSystemGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetBattlecruisers_PointDefenseSystems");
-
-                entity.HasOne(d => d.Thruster)
-                    .WithMany(p => p.FleetBattlecruisers)
-                    .HasForeignKey(d => d.ThrusterGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetBattlecruisers_Thrusters");
-
-                entity.HasOne(d => d.WeaponFrame1)
-                    .WithMany(p => p.FleetBattlecruiserWeaponFrame1s)
-                    .HasForeignKey(d => d.WeaponFrame1Guid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetBattlecruisers_WeaponFrames1");
-
-                entity.HasOne(d => d.WeaponFrame2)
-                    .WithMany(p => p.FleetBattlecruiserWeaponFrame2s)
-                    .HasForeignKey(d => d.WeaponFrame2Guid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetBattlecruisers_WeaponFrames2");
+                    .HasConstraintName("FK_FleetBattlecruisers_Fleets1");
             });
 
             modelBuilder.Entity<FleetCarrier>(entity =>
@@ -347,53 +605,17 @@ namespace celestial_frontier_web_api.Models
 
                 entity.Property(e => e.FleetCarrierGuid).ValueGeneratedNever();
 
-                entity.HasOne(d => d.Armor)
+                entity.HasOne(d => d.CarrierConfiguration)
                     .WithMany(p => p.FleetCarriers)
-                    .HasForeignKey(d => d.ArmorGuid)
+                    .HasForeignKey(d => d.CarrierConfigurationGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCarriers_Armors");
-
-                entity.HasOne(d => d.Carrier)
-                    .WithMany(p => p.FleetCarriers)
-                    .HasForeignKey(d => d.CarrierGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCarriers_Carriers");
+                    .HasConstraintName("FK_FleetCarriers_CarrierConfigurations");
 
                 entity.HasOne(d => d.Fleet)
                     .WithMany(p => p.FleetCarriers)
                     .HasForeignKey(d => d.FleetGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FleetCarriers_Fleets");
-
-                entity.HasOne(d => d.FuelSystem)
-                    .WithMany(p => p.FleetCarriers)
-                    .HasForeignKey(d => d.FuelSystemGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCarriers_FuelSystems");
-
-                entity.HasOne(d => d.Payload)
-                    .WithMany(p => p.FleetCarriers)
-                    .HasForeignKey(d => d.PayloadGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCarriers_Payloads");
-
-                entity.HasOne(d => d.PointDefenseSystem)
-                    .WithMany(p => p.FleetCarriers)
-                    .HasForeignKey(d => d.PointDefenseSystemGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCarriers_PointDefenseSystems");
-
-                entity.HasOne(d => d.Thruster)
-                    .WithMany(p => p.FleetCarriers)
-                    .HasForeignKey(d => d.ThrusterGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCarriers_Thrusters");
-
-                entity.HasOne(d => d.WeaponFrame)
-                    .WithMany(p => p.FleetCarriers)
-                    .HasForeignKey(d => d.WeaponFrameGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCarriers_WeaponFrames");
             });
 
             modelBuilder.Entity<FleetCorvette>(entity =>
@@ -402,53 +624,17 @@ namespace celestial_frontier_web_api.Models
 
                 entity.Property(e => e.FleetCorvetteGuid).ValueGeneratedNever();
 
-                entity.HasOne(d => d.Armor)
+                entity.HasOne(d => d.CorvetteConfiguration)
                     .WithMany(p => p.FleetCorvettes)
-                    .HasForeignKey(d => d.ArmorGuid)
+                    .HasForeignKey(d => d.CorvetteConfigurationGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCorvettes_Armors");
-
-                entity.HasOne(d => d.Corvette)
-                    .WithMany(p => p.FleetCorvettes)
-                    .HasForeignKey(d => d.CorvetteGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCorvettes_Corvettes");
+                    .HasConstraintName("FK_FleetCorvettes_CorvetteConfigurations");
 
                 entity.HasOne(d => d.Fleet)
                     .WithMany(p => p.FleetCorvettes)
                     .HasForeignKey(d => d.FleetGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FleetCorvettes_Fleets");
-
-                entity.HasOne(d => d.FuelSystem)
-                    .WithMany(p => p.FleetCorvettes)
-                    .HasForeignKey(d => d.FuelSystemGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCorvettes_FuelSystems");
-
-                entity.HasOne(d => d.Payload)
-                    .WithMany(p => p.FleetCorvettes)
-                    .HasForeignKey(d => d.PayloadGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCorvettes_Payloads");
-
-                entity.HasOne(d => d.PointDefenseSystem)
-                    .WithMany(p => p.FleetCorvettes)
-                    .HasForeignKey(d => d.PointDefenseSystemGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCorvettes_PointDefenseSystems");
-
-                entity.HasOne(d => d.Thruster)
-                    .WithMany(p => p.FleetCorvettes)
-                    .HasForeignKey(d => d.ThrusterGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCorvettes_Thrusters");
-
-                entity.HasOne(d => d.WeaponFrame)
-                    .WithMany(p => p.FleetCorvettes)
-                    .HasForeignKey(d => d.WeaponFrameGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCorvettes_WeaponFrames");
             });
 
             modelBuilder.Entity<FleetDestroyer>(entity =>
@@ -457,65 +643,17 @@ namespace celestial_frontier_web_api.Models
 
                 entity.Property(e => e.FleetDestroyerGuid).ValueGeneratedNever();
 
-                entity.HasOne(d => d.Armor)
+                entity.HasOne(d => d.DestroyerConfiguration)
                     .WithMany(p => p.FleetDestroyers)
-                    .HasForeignKey(d => d.ArmorGuid)
+                    .HasForeignKey(d => d.DestroyerConfigurationGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetDestroyers_Armors");
-
-                entity.HasOne(d => d.Destroyer)
-                    .WithMany(p => p.FleetDestroyers)
-                    .HasForeignKey(d => d.DestroyerGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetDestroyers_Destroyers");
+                    .HasConstraintName("FK_FleetDestroyers_DestroyerConfigurations");
 
                 entity.HasOne(d => d.Fleet)
                     .WithMany(p => p.FleetDestroyers)
                     .HasForeignKey(d => d.FleetGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FleetDestroyers_Fleets");
-
-                entity.HasOne(d => d.FuelSystem)
-                    .WithMany(p => p.FleetDestroyers)
-                    .HasForeignKey(d => d.FuelSystemGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetDestroyers_FuelSystems");
-
-                entity.HasOne(d => d.Payload1)
-                    .WithMany(p => p.FleetDestroyerPayload1s)
-                    .HasForeignKey(d => d.Payload1Guid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetDestroyers_Payloads");
-
-                entity.HasOne(d => d.Payload2)
-                    .WithMany(p => p.FleetDestroyerPayload2s)
-                    .HasForeignKey(d => d.Payload2Guid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetDestroyers_Payloads1");
-
-                entity.HasOne(d => d.PointDefenseSystem)
-                    .WithMany(p => p.FleetDestroyers)
-                    .HasForeignKey(d => d.PointDefenseSystemGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetDestroyers_PointDefenseSystems");
-
-                entity.HasOne(d => d.Thruster)
-                    .WithMany(p => p.FleetDestroyers)
-                    .HasForeignKey(d => d.ThrusterGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetDestroyers_Thrusters");
-
-                entity.HasOne(d => d.WeaponFrame1)
-                    .WithMany(p => p.FleetDestroyerWeaponFrame1s)
-                    .HasForeignKey(d => d.WeaponFrame1Guid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetDestroyers_WeaponFrames");
-
-                entity.HasOne(d => d.WeaponFrame2)
-                    .WithMany(p => p.FleetDestroyerWeaponFrame2s)
-                    .HasForeignKey(d => d.WeaponFrame2Guid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetDestroyers_WeaponFrames1");
             });
 
             modelBuilder.Entity<FleetFighter>(entity =>
@@ -524,53 +662,17 @@ namespace celestial_frontier_web_api.Models
 
                 entity.Property(e => e.FleetFighterGuid).ValueGeneratedNever();
 
-                entity.HasOne(d => d.Armor)
+                entity.HasOne(d => d.FighterConfiguration)
                     .WithMany(p => p.FleetFighters)
-                    .HasForeignKey(d => d.ArmorGuid)
+                    .HasForeignKey(d => d.FighterConfigurationGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFighters_Armors");
-
-                entity.HasOne(d => d.Fighter)
-                    .WithMany(p => p.FleetFighters)
-                    .HasForeignKey(d => d.FighterGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFighters_Fighters");
+                    .HasConstraintName("FK_FleetFighters_FighterConfigurations");
 
                 entity.HasOne(d => d.Fleet)
                     .WithMany(p => p.FleetFighters)
                     .HasForeignKey(d => d.FleetGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FleetFighters_Fleets");
-
-                entity.HasOne(d => d.FuelSystem)
-                    .WithMany(p => p.FleetFighters)
-                    .HasForeignKey(d => d.FuelSystemGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFighters_FuelSystems");
-
-                entity.HasOne(d => d.Payload)
-                    .WithMany(p => p.FleetFighters)
-                    .HasForeignKey(d => d.PayloadGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFighters_Payloads");
-
-                entity.HasOne(d => d.PointDefenseSystem)
-                    .WithMany(p => p.FleetFighters)
-                    .HasForeignKey(d => d.PointDefenseSystemGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFighters_PointDefenseSystems");
-
-                entity.HasOne(d => d.Thruster)
-                    .WithMany(p => p.FleetFighters)
-                    .HasForeignKey(d => d.ThrusterGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFighters_Thrusters");
-
-                entity.HasOne(d => d.WeaponFrame)
-                    .WithMany(p => p.FleetFighters)
-                    .HasForeignKey(d => d.WeaponFrameGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFighters_WeaponFrames");
             });
 
             modelBuilder.Entity<FleetFrigate>(entity =>
@@ -579,53 +681,17 @@ namespace celestial_frontier_web_api.Models
 
                 entity.Property(e => e.FleetFrigateGuid).ValueGeneratedNever();
 
-                entity.HasOne(d => d.Armor)
-                    .WithMany(p => p.FleetFrigates)
-                    .HasForeignKey(d => d.ArmorGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFrigates_Armors");
-
                 entity.HasOne(d => d.Fleet)
                     .WithMany(p => p.FleetFrigates)
                     .HasForeignKey(d => d.FleetGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FleetFrigates_Fleets");
 
-                entity.HasOne(d => d.Frigate)
+                entity.HasOne(d => d.FrigateConfiguration)
                     .WithMany(p => p.FleetFrigates)
-                    .HasForeignKey(d => d.FrigateGuid)
+                    .HasForeignKey(d => d.FrigateConfigurationGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFrigates_Frigates");
-
-                entity.HasOne(d => d.FuelSystem)
-                    .WithMany(p => p.FleetFrigates)
-                    .HasForeignKey(d => d.FuelSystemGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFrigates_FuelSystems");
-
-                entity.HasOne(d => d.Payload)
-                    .WithMany(p => p.FleetFrigates)
-                    .HasForeignKey(d => d.PayloadGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFrigates_Payloads");
-
-                entity.HasOne(d => d.PointDefenseSystem)
-                    .WithMany(p => p.FleetFrigates)
-                    .HasForeignKey(d => d.PointDefenseSystemGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFrigates_PointDefenseSystems");
-
-                entity.HasOne(d => d.Thruster)
-                    .WithMany(p => p.FleetFrigates)
-                    .HasForeignKey(d => d.ThrusterGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFrigates_Thrusters");
-
-                entity.HasOne(d => d.WeaponFrame)
-                    .WithMany(p => p.FleetFrigates)
-                    .HasForeignKey(d => d.WeaponFrameGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFrigates_WeaponFrames");
+                    .HasConstraintName("FK_FleetFrigates_FrigateConfigurations");
             });
 
             modelBuilder.Entity<Frigate>(entity =>
@@ -663,6 +729,61 @@ namespace celestial_frontier_web_api.Models
                     .HasForeignKey(d => d.WeaponPowerLevelGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Frigates(Weapons)_PowerLevels");
+            });
+
+            modelBuilder.Entity<FrigateConfiguration>(entity =>
+            {
+                entity.HasKey(e => e.FrigateConfigurationGuid);
+
+                entity.Property(e => e.FrigateConfigurationGuid).ValueGeneratedNever();
+
+                entity.HasOne(d => d.Armor)
+                    .WithMany(p => p.FrigateConfigurations)
+                    .HasForeignKey(d => d.ArmorGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FrigateConfigurations_Armors");
+
+                entity.HasOne(d => d.Frigate)
+                    .WithMany(p => p.FrigateConfigurations)
+                    .HasForeignKey(d => d.FrigateGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FrigateConfigurations_Frigates");
+
+                entity.HasOne(d => d.FuelSystem)
+                    .WithMany(p => p.FrigateConfigurations)
+                    .HasForeignKey(d => d.FuelSystemGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FrigateConfigurations_FuelSystems");
+
+                entity.HasOne(d => d.Payload)
+                    .WithMany(p => p.FrigateConfigurations)
+                    .HasForeignKey(d => d.PayloadGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FrigateConfigurations_Payloads");
+
+                entity.HasOne(d => d.PointDefenseSystem)
+                    .WithMany(p => p.FrigateConfigurations)
+                    .HasForeignKey(d => d.PointDefenseSystemGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FrigateConfigurations_PointDefenseSystems");
+
+                entity.HasOne(d => d.Thruster)
+                    .WithMany(p => p.FrigateConfigurations)
+                    .HasForeignKey(d => d.ThrusterGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FrigateConfigurations_Thrusters");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.FrigateConfigurations)
+                    .HasForeignKey(d => d.UserGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FrigateConfigurations_Users");
+
+                entity.HasOne(d => d.WeaponFrame)
+                    .WithMany(p => p.FrigateConfigurations)
+                    .HasForeignKey(d => d.WeaponFrameGuid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FrigateConfigurations_WeaponFrames");
             });
 
             modelBuilder.Entity<FuelSystem>(entity =>
@@ -840,6 +961,10 @@ namespace celestial_frontier_web_api.Models
                 entity.HasKey(e => e.UserGuid);
 
                 entity.Property(e => e.UserGuid).ValueGeneratedNever();
+
+                entity.Property(e => e.PasswordHash).IsRequired();
+
+                entity.Property(e => e.PasswordSalt).IsRequired();
 
                 entity.Property(e => e.Username)
                     .IsRequired()

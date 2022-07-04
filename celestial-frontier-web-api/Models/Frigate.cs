@@ -7,7 +7,7 @@ namespace celestial_frontier_web_api.Models
     {
         public Frigate()
         {
-            FleetFrigates = new HashSet<FleetFrigate>();
+            FrigateConfigurations = new HashSet<FrigateConfiguration>();
         }
 
         public Guid FrigateGuid { get; set; }
@@ -28,6 +28,6 @@ namespace celestial_frontier_web_api.Models
         public virtual SpaceshipCategory SpaceshipCategory { get; set; }
         public virtual SpaceshipType SpaceshipType { get; set; }
         public virtual PowerLevel WeaponPowerLevel { get; set; }
-        public virtual ICollection<FleetFrigate> FleetFrigates { get; set; }
+        public virtual ICollection<FrigateConfiguration> FrigateConfigurations { get; set; }
     }
 }

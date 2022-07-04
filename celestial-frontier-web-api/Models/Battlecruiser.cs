@@ -7,7 +7,7 @@ namespace celestial_frontier_web_api.Models
     {
         public Battlecruiser()
         {
-            FleetBattlecruisers = new HashSet<FleetBattlecruiser>();
+            BattlecruiserConfigurations = new HashSet<BattlecruiserConfiguration>();
         }
 
         public Guid BattlecruiserGuid { get; set; }
@@ -27,6 +27,6 @@ namespace celestial_frontier_web_api.Models
         public virtual SpaceshipCategory SpaceshipCategory { get; set; }
         public virtual SpaceshipType SpaceshipType { get; set; }
         public virtual PowerLevel WeaponPowerLevel { get; set; }
-        public virtual ICollection<FleetBattlecruiser> FleetBattlecruisers { get; set; }
+        public virtual ICollection<BattlecruiserConfiguration> BattlecruiserConfigurations { get; set; }
     }
 }

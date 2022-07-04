@@ -7,7 +7,7 @@ namespace celestial_frontier_web_api.Models
     {
         public Destroyer()
         {
-            FleetDestroyers = new HashSet<FleetDestroyer>();
+            DestroyerConfigurations = new HashSet<DestroyerConfiguration>();
         }
 
         public Guid DestroyerGuid { get; set; }
@@ -28,6 +28,6 @@ namespace celestial_frontier_web_api.Models
         public virtual SpaceshipCategory SpaceshipCategory { get; set; }
         public virtual SpaceshipType SpaceshipType { get; set; }
         public virtual PowerLevel WeaponPowerLevel { get; set; }
-        public virtual ICollection<FleetDestroyer> FleetDestroyers { get; set; }
+        public virtual ICollection<DestroyerConfiguration> DestroyerConfigurations { get; set; }
     }
 }

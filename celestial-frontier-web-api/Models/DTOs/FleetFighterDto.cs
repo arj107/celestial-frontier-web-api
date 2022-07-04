@@ -1,27 +1,12 @@
 ﻿namespace celestial_frontier_web_api.Models.DTOs {
     public class FleetFighterDto {
-        public ArmorDto Armor {
+        public Guid FleetFighterGuid {
             get; set;
         }
-        public CarrierDto Carrier {
+        public virtual FighterConfigurationDto FighterConfiguration {
             get; set;
         }
-        public FleetDto Fleet {
-            get; set;
-        }
-        public FuelSystemDto FuelSystem {
-            get; set;
-        }
-        public PayloadDto Payload {
-            get; set;
-        }
-        public PointDefenseSystemDto PointDefenseSystem {
-            get; set;
-        }
-        public ThrusterDto Thruster {
-            get; set;
-        }
-        public WeaponFrameDto WeaponFrame {
+        public virtual FleetDto Fleet {
             get; set;
         }
     }
