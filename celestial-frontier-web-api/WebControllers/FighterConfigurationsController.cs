@@ -62,7 +62,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FighterConfigurationGuid,UserGuid,FighterGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] FighterConfiguration fighterConfiguration) {
+        public async Task<IActionResult> Create([Bind("FighterConfigurationGuid,Name,UserGuid,FighterGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] FighterConfiguration fighterConfiguration) {
             if (ModelState.IsValid) {
                 fighterConfiguration.FighterConfigurationGuid = Guid.NewGuid();
                 _context.Add(fighterConfiguration);
@@ -106,7 +106,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("FighterConfigurationGuid,UserGuid,FighterGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] FighterConfiguration fighterConfiguration) {
+        public async Task<IActionResult> Edit(Guid id, [Bind("FighterConfigurationGuid,Name,UserGuid,FighterGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] FighterConfiguration fighterConfiguration) {
             if (id != fighterConfiguration.FighterConfigurationGuid) {
                 return NotFound();
             }

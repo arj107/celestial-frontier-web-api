@@ -62,7 +62,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CorvetteConfigurationGuid,UserGuid,CorvetteGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] CorvetteConfiguration corvetteConfiguration) {
+        public async Task<IActionResult> Create([Bind("CorvetteConfigurationGuid,Name,UserGuid,CorvetteGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] CorvetteConfiguration corvetteConfiguration) {
             if (ModelState.IsValid) {
                 corvetteConfiguration.CorvetteConfigurationGuid = Guid.NewGuid();
                 _context.Add(corvetteConfiguration);
@@ -106,7 +106,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("CorvetteConfigurationGuid,UserGuid,CorvetteGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] CorvetteConfiguration corvetteConfiguration) {
+        public async Task<IActionResult> Edit(Guid id, [Bind("CorvetteConfigurationGuid,Name,UserGuid,CorvetteGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] CorvetteConfiguration corvetteConfiguration) {
             if (id != corvetteConfiguration.CorvetteConfigurationGuid) {
                 return NotFound();
             }

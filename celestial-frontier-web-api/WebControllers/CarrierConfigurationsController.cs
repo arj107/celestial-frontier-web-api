@@ -62,7 +62,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarrierConfigurationGuid,UserGuid,CarrierGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] CarrierConfiguration carrierConfiguration) {
+        public async Task<IActionResult> Create([Bind("CarrierConfigurationGuid,Name,UserGuid,CarrierGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] CarrierConfiguration carrierConfiguration) {
             if (ModelState.IsValid) {
                 carrierConfiguration.CarrierConfigurationGuid = Guid.NewGuid();
                 _context.Add(carrierConfiguration);
@@ -106,7 +106,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("CarrierConfigurationGuid,UserGuid,CarrierGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] CarrierConfiguration carrierConfiguration) {
+        public async Task<IActionResult> Edit(Guid id, [Bind("CarrierConfigurationGuid,Name,UserGuid,CarrierGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] CarrierConfiguration carrierConfiguration) {
             if (id != carrierConfiguration.CarrierConfigurationGuid) {
                 return NotFound();
             }

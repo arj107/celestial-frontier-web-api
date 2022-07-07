@@ -62,7 +62,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FrigateConfigurationGuid,UserGuid,FrigateGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] FrigateConfiguration frigateConfiguration) {
+        public async Task<IActionResult> Create([Bind("FrigateConfigurationGuid,Name,UserGuid,FrigateGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] FrigateConfiguration frigateConfiguration) {
             if (ModelState.IsValid) {
                 frigateConfiguration.FrigateConfigurationGuid = Guid.NewGuid();
                 _context.Add(frigateConfiguration);
@@ -106,7 +106,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("FrigateConfigurationGuid,UserGuid,FrigateGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] FrigateConfiguration frigateConfiguration) {
+        public async Task<IActionResult> Edit(Guid id, [Bind("FrigateConfigurationGuid,Name,UserGuid,FrigateGuid,WeaponFrameGuid,PayloadGuid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] FrigateConfiguration frigateConfiguration) {
             if (id != frigateConfiguration.FrigateConfigurationGuid) {
                 return NotFound();
             }

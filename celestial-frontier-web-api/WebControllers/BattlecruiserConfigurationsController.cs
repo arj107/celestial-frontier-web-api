@@ -66,7 +66,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BattlecruiserConfigurationGuid,UserGuid,BattlecruiserGuid,WeaponFrame1Guid,Payload1Guid,WeaponFrame2Guid,Payload2Guid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] BattlecruiserConfiguration battlecruiserConfiguration) {
+        public async Task<IActionResult> Create([Bind("BattlecruiserConfigurationGuid,Name,UserGuid,BattlecruiserGuid,WeaponFrame1Guid,Payload1Guid,WeaponFrame2Guid,Payload2Guid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] BattlecruiserConfiguration battlecruiserConfiguration) {
             if (ModelState.IsValid) {
                 battlecruiserConfiguration.BattlecruiserConfigurationGuid = Guid.NewGuid();
                 _context.Add(battlecruiserConfiguration);
@@ -114,7 +114,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("BattlecruiserConfigurationGuid,UserGuid,BattlecruiserGuid,WeaponFrame1Guid,Payload1Guid,WeaponFrame2Guid,Payload2Guid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] BattlecruiserConfiguration battlecruiserConfiguration) {
+        public async Task<IActionResult> Edit(Guid id, [Bind("BattlecruiserConfigurationGuid,Name,UserGuid,BattlecruiserGuid,WeaponFrame1Guid,Payload1Guid,WeaponFrame2Guid,Payload2Guid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] BattlecruiserConfiguration battlecruiserConfiguration) {
             if (id != battlecruiserConfiguration.BattlecruiserConfigurationGuid) {
                 return NotFound();
             }

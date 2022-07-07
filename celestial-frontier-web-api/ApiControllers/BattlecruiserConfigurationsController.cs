@@ -67,6 +67,44 @@ namespace celestial_frontier_web_api.ApiControllers
             return Ok(battlecruiserConfigurationDtos);
         }
 
+        // GET: api/User/Fleets
+        [HttpGet]
+        [Authorize]
+        [Route("~/api/User/[controller]/{battlecruiserConfigurationGuid}")]
+        public async Task<ActionResult<BattlecruiserConfigurationDto>> GetUserBattlecruiserConfiguration(Guid battlecruiserConfigurationGuid) {
+            Guid userGuid = _jwtService.GetUserGuid(HttpContext);
+
+            BattlecruiserConfiguration battlecruiserConfiguration = await _context.BattlecruiserConfigurations.Where(f => f.BattlecruiserConfigurationGuid == battlecruiserConfigurationGuid)
+                .Include(f => f.User)
+                .Include("Armor.SpaceshipType")
+                .Include("Battlecruiser.PointDefenseSystemPowerLevel")
+                .Include("Battlecruiser.SpaceshipCategory")
+                .Include("Battlecruiser.SpaceshipType")
+                .Include("Battlecruiser.WeaponPowerLevel")
+                .Include("FuelSystem.SpaceshipType")
+                .Include("Payload1.PayloadType")
+                .Include("Payload1.PowerLevel")
+                .Include("Payload1.WeaponFrameType")
+                .Include("Payload2.PayloadType")
+                .Include("Payload2.PowerLevel")
+                .Include("Payload2.WeaponFrameType")
+                .Include("PointDefenseSystem.PowerLevel")
+                .Include("Thruster.SpaceshipType")
+                .Include("WeaponFrame1.PowerLevel")
+                .Include("WeaponFrame1.WeaponFrameType")
+                .Include("WeaponFrame2.PowerLevel")
+                .Include("WeaponFrame2.WeaponFrameType")
+
+                .FirstOrDefaultAsync(f => f.UserGuid == userGuid && f.BattlecruiserConfigurationGuid == battlecruiserConfigurationGuid);
+
+            if (battlecruiserConfiguration == null) {
+                return NotFound();
+            }
+
+            BattlecruiserConfigurationDto battlecruiserConfigurationDto = _mapper.Map<BattlecruiserConfiguration, BattlecruiserConfigurationDto>(battlecruiserConfiguration);
+            return Ok(battlecruiserConfigurationDto);
+        }
+
         // GET: api/BattlecruiserConfigurations/5
         [HttpGet("{id}")]
         public async Task<ActionResult<BattlecruiserConfiguration>> GetBattlecruiserConfiguration(Guid id)

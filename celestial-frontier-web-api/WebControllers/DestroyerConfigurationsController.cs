@@ -66,7 +66,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DestroyerConfigurationGuid,UserGuid,DestroyerGuid,WeaponFrame1Guid,Payload1Guid,WeaponFrame2Guid,Payload2Guid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] DestroyerConfiguration destroyerConfiguration) {
+        public async Task<IActionResult> Create([Bind("DestroyerConfigurationGuid,Name,UserGuid,DestroyerGuid,WeaponFrame1Guid,Payload1Guid,WeaponFrame2Guid,Payload2Guid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] DestroyerConfiguration destroyerConfiguration) {
             if (ModelState.IsValid) {
                 destroyerConfiguration.DestroyerConfigurationGuid = Guid.NewGuid();
                 _context.Add(destroyerConfiguration);
@@ -114,7 +114,7 @@ namespace celestial_frontier_web_api.WebControllers {
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("DestroyerConfigurationGuid,UserGuid,DestroyerGuid,WeaponFrame1Guid,Payload1Guid,WeaponFrame2Guid,Payload2Guid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] DestroyerConfiguration destroyerConfiguration) {
+        public async Task<IActionResult> Edit(Guid id, [Bind("DestroyerConfigurationGuid,Name,UserGuid,DestroyerGuid,WeaponFrame1Guid,Payload1Guid,WeaponFrame2Guid,Payload2Guid,ArmorGuid,PointDefenseSystemGuid,FuelSystemGuid,ThrusterGuid")] DestroyerConfiguration destroyerConfiguration) {
             if (id != destroyerConfiguration.DestroyerConfigurationGuid) {
                 return NotFound();
             }
