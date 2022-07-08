@@ -7,12 +7,12 @@ namespace celestial_frontier_web_api.Models
     {
         public PointDefenseSystem()
         {
-            FleetBattlecruisers = new HashSet<FleetBattlecruiser>();
-            FleetCarriers = new HashSet<FleetCarrier>();
-            FleetCorvettes = new HashSet<FleetCorvette>();
-            FleetDestroyers = new HashSet<FleetDestroyer>();
-            FleetFighters = new HashSet<FleetFighter>();
-            FleetFrigates = new HashSet<FleetFrigate>();
+            BattlecruiserConfigurations = new HashSet<BattlecruiserConfiguration>();
+            CarrierConfigurations = new HashSet<CarrierConfiguration>();
+            CorvetteConfigurations = new HashSet<CorvetteConfiguration>();
+            DestroyerConfigurations = new HashSet<DestroyerConfiguration>();
+            FighterConfigurations = new HashSet<FighterConfiguration>();
+            FrigateConfigurations = new HashSet<FrigateConfiguration>();
         }
 
         public Guid PointDefenseSystemGuid { get; set; }
@@ -27,11 +27,11 @@ namespace celestial_frontier_web_api.Models
         public string Description { get; set; }
 
         public virtual PowerLevel PowerLevel { get; set; }
-        public virtual ICollection<FleetBattlecruiser> FleetBattlecruisers { get; set; }
-        public virtual ICollection<FleetCarrier> FleetCarriers { get; set; }
-        public virtual ICollection<FleetCorvette> FleetCorvettes { get; set; }
-        public virtual ICollection<FleetDestroyer> FleetDestroyers { get; set; }
-        public virtual ICollection<FleetFighter> FleetFighters { get; set; }
-        public virtual ICollection<FleetFrigate> FleetFrigates { get; set; }
+        public virtual ICollection<BattlecruiserConfiguration> BattlecruiserConfigurations { get; set; }
+        public virtual ICollection<CarrierConfiguration> CarrierConfigurations { get; set; }
+        public virtual ICollection<CorvetteConfiguration> CorvetteConfigurations { get; set; }
+        public virtual ICollection<DestroyerConfiguration> DestroyerConfigurations { get; set; }
+        public virtual ICollection<FighterConfiguration> FighterConfigurations { get; set; }
+        public virtual ICollection<FrigateConfiguration> FrigateConfigurations { get; set; }
     }
 }

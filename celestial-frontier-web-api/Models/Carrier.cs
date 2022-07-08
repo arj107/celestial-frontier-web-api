@@ -7,7 +7,7 @@ namespace celestial_frontier_web_api.Models
     {
         public Carrier()
         {
-            FleetCarriers = new HashSet<FleetCarrier>();
+            CarrierConfigurations = new HashSet<CarrierConfiguration>();
         }
 
         public Guid CarrierGuid { get; set; }
@@ -31,6 +31,6 @@ namespace celestial_frontier_web_api.Models
         public virtual SpaceshipCategory SpaceshipCategory { get; set; }
         public virtual SpaceshipType SpaceshipType { get; set; }
         public virtual PowerLevel WeaponPowerLevel { get; set; }
-        public virtual ICollection<FleetCarrier> FleetCarriers { get; set; }
+        public virtual ICollection<CarrierConfiguration> CarrierConfigurations { get; set; }
     }
 }

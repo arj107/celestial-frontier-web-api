@@ -7,14 +7,14 @@ namespace celestial_frontier_web_api.Models
     {
         public Payload()
         {
-            FleetBattlecruiserPayload1s = new HashSet<FleetBattlecruiser>();
-            FleetBattlecruiserPayload2s = new HashSet<FleetBattlecruiser>();
-            FleetCarriers = new HashSet<FleetCarrier>();
-            FleetCorvettes = new HashSet<FleetCorvette>();
-            FleetDestroyerPayload1s = new HashSet<FleetDestroyer>();
-            FleetDestroyerPayload2s = new HashSet<FleetDestroyer>();
-            FleetFighters = new HashSet<FleetFighter>();
-            FleetFrigates = new HashSet<FleetFrigate>();
+            BattlecruiserConfigurationPayload1s = new HashSet<BattlecruiserConfiguration>();
+            BattlecruiserConfigurationPayload2s = new HashSet<BattlecruiserConfiguration>();
+            CarrierConfigurations = new HashSet<CarrierConfiguration>();
+            CorvetteConfigurations = new HashSet<CorvetteConfiguration>();
+            DestroyerConfigurationPayload1s = new HashSet<DestroyerConfiguration>();
+            DestroyerConfigurationPayload2s = new HashSet<DestroyerConfiguration>();
+            FighterConfigurations = new HashSet<FighterConfiguration>();
+            FrigateConfigurations = new HashSet<FrigateConfiguration>();
         }
 
         public Guid PayloadGuid { get; set; }
@@ -33,13 +33,13 @@ namespace celestial_frontier_web_api.Models
         public virtual PayloadType PayloadType { get; set; }
         public virtual PowerLevel PowerLevel { get; set; }
         public virtual WeaponFrameType WeaponFrameType { get; set; }
-        public virtual ICollection<FleetBattlecruiser> FleetBattlecruiserPayload1s { get; set; }
-        public virtual ICollection<FleetBattlecruiser> FleetBattlecruiserPayload2s { get; set; }
-        public virtual ICollection<FleetCarrier> FleetCarriers { get; set; }
-        public virtual ICollection<FleetCorvette> FleetCorvettes { get; set; }
-        public virtual ICollection<FleetDestroyer> FleetDestroyerPayload1s { get; set; }
-        public virtual ICollection<FleetDestroyer> FleetDestroyerPayload2s { get; set; }
-        public virtual ICollection<FleetFighter> FleetFighters { get; set; }
-        public virtual ICollection<FleetFrigate> FleetFrigates { get; set; }
+        public virtual ICollection<BattlecruiserConfiguration> BattlecruiserConfigurationPayload1s { get; set; }
+        public virtual ICollection<BattlecruiserConfiguration> BattlecruiserConfigurationPayload2s { get; set; }
+        public virtual ICollection<CarrierConfiguration> CarrierConfigurations { get; set; }
+        public virtual ICollection<CorvetteConfiguration> CorvetteConfigurations { get; set; }
+        public virtual ICollection<DestroyerConfiguration> DestroyerConfigurationPayload1s { get; set; }
+        public virtual ICollection<DestroyerConfiguration> DestroyerConfigurationPayload2s { get; set; }
+        public virtual ICollection<FighterConfiguration> FighterConfigurations { get; set; }
+        public virtual ICollection<FrigateConfiguration> FrigateConfigurations { get; set; }
     }
 }

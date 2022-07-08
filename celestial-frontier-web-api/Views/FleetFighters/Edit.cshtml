@@ -14,44 +14,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="FleetFighterGuid" />
             <div class="form-group">
+                <label asp-for="FighterConfigurationGuid" class="control-label"></label>
+                <select asp-for="FighterConfigurationGuid" class="form-control" asp-items="ViewBag.FighterConfigurationGuid"></select>
+                <span asp-validation-for="FighterConfigurationGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="FleetGuid" class="control-label"></label>
                 <select asp-for="FleetGuid" class="form-control" asp-items="ViewBag.FleetGuid"></select>
                 <span asp-validation-for="FleetGuid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FighterGuid" class="control-label"></label>
-                <select asp-for="FighterGuid" class="form-control" asp-items="ViewBag.FighterGuid"></select>
-                <span asp-validation-for="FighterGuid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WeaponFrameGuid" class="control-label"></label>
-                <select asp-for="WeaponFrameGuid" class="form-control" asp-items="ViewBag.WeaponFrameGuid"></select>
-                <span asp-validation-for="WeaponFrameGuid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PayloadGuid" class="control-label"></label>
-                <select asp-for="PayloadGuid" class="form-control" asp-items="ViewBag.PayloadGuid"></select>
-                <span asp-validation-for="PayloadGuid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ArmorGuid" class="control-label"></label>
-                <select asp-for="ArmorGuid" class="form-control" asp-items="ViewBag.ArmorGuid"></select>
-                <span asp-validation-for="ArmorGuid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PointDefenseSystemGuid" class="control-label"></label>
-                <select asp-for="PointDefenseSystemGuid" class="form-control" asp-items="ViewBag.PointDefenseSystemGuid"></select>
-                <span asp-validation-for="PointDefenseSystemGuid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FuelSystemGuid" class="control-label"></label>
-                <select asp-for="FuelSystemGuid" class="form-control" asp-items="ViewBag.FuelSystemGuid"></select>
-                <span asp-validation-for="FuelSystemGuid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ThrusterGuid" class="control-label"></label>
-                <select asp-for="ThrusterGuid" class="form-control" asp-items="ViewBag.ThrusterGuid"></select>
-                <span asp-validation-for="ThrusterGuid" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

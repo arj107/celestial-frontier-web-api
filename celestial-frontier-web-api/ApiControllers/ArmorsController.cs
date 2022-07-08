@@ -21,18 +21,23 @@ namespace celestial_frontier_web_api.ApiControllers
             _context = context;
         }
 
-        // GET: api/Armors
+        // GET: api/Armors?spaceshipTypeGuid={spaceshipTypeGuid}
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ArmorDto>>> GetArmors()
+        public async Task<ActionResult<IEnumerable<ArmorDto>>> GetArmors([FromQuery] Guid? spaceshipTypeGuid = null)
         {
             if (_context.Armors == null)
             {
                 return NotFound();
             }
 
-            List<Armor> armorEntities = await _context.Armors
-              .Include(s => s.SpaceshipType)
-              .ToListAsync();
+            IQueryable<Armor> armorQueryables = _context.Armors
+              .Include(s => s.SpaceshipType);
+
+            if (spaceshipTypeGuid != null) {
+                armorQueryables = armorQueryables.Where(s => s.SpaceshipTypeGuid == spaceshipTypeGuid);
+            }
+
+            List<Armor> armorEntities = await armorQueryables.ToListAsync();
 
             List<ArmorDto> armorDtos = new List<ArmorDto>();
             foreach (Armor armor in armorEntities) {

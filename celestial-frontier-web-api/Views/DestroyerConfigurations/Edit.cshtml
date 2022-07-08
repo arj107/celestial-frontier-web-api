@@ -1,0 +1,84 @@
+﻿@model celestial_frontier_web_api.Models.DestroyerConfiguration
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Destroyer Configuration</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="DestroyerConfigurationGuid" />
+            <div class="form-group">
+                <label asp-for="UserGuid" class="control-label"></label>
+                <select asp-for="UserGuid" class="form-control" asp-items="ViewBag.UserGuid"></select>
+                <span asp-validation-for="UserGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DestroyerGuid" class="control-label"></label>
+                <select asp-for="DestroyerGuid" class="form-control" asp-items="ViewBag.DestroyerGuid"></select>
+                <span asp-validation-for="DestroyerGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WeaponFrame1Guid" class="control-label"></label>
+                <select asp-for="WeaponFrame1Guid" class="form-control" asp-items="ViewBag.WeaponFrame1Guid"></select>
+                <span asp-validation-for="WeaponFrame1Guid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Payload1Guid" class="control-label"></label>
+                <select asp-for="Payload1Guid" class="form-control" asp-items="ViewBag.Payload1Guid"></select>
+                <span asp-validation-for="Payload1Guid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WeaponFrame2Guid" class="control-label"></label>
+                <select asp-for="WeaponFrame2Guid" class="form-control" asp-items="ViewBag.WeaponFrame2Guid"></select>
+                <span asp-validation-for="WeaponFrame2Guid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Payload2Guid" class="control-label"></label>
+                <select asp-for="Payload2Guid" class="form-control" asp-items="ViewBag.Payload2Guid"></select>
+                <span asp-validation-for="Payload2Guid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArmorGuid" class="control-label"></label>
+                <select asp-for="ArmorGuid" class="form-control" asp-items="ViewBag.ArmorGuid"></select>
+                <span asp-validation-for="ArmorGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PointDefenseSystemGuid" class="control-label"></label>
+                <select asp-for="PointDefenseSystemGuid" class="form-control" asp-items="ViewBag.PointDefenseSystemGuid"></select>
+                <span asp-validation-for="PointDefenseSystemGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FuelSystemGuid" class="control-label"></label>
+                <select asp-for="FuelSystemGuid" class="form-control" asp-items="ViewBag.FuelSystemGuid"></select>
+                <span asp-validation-for="FuelSystemGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThrusterGuid" class="control-label"></label>
+                <select asp-for="ThrusterGuid" class="form-control" asp-items="ViewBag.ThrusterGuid"></select>
+                <span asp-validation-for="ThrusterGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
