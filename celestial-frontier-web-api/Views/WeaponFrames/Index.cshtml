@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>
@@ -25,10 +25,13 @@
                 @Html.DisplayNameFor(model => model.BaseMagSize)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BaseAccuracyModifier)
+                @Html.DisplayNameFor(model => model.TargetingEfficiency)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BaseTurnsToArm)
+                @Html.DisplayNameFor(model => model.OptimalRange)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EffectiveRange)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BaseCriticalHitChance)
@@ -64,10 +67,13 @@
                 @Html.DisplayFor(modelItem => item.BaseMagSize)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BaseAccuracyModifier)
+                @Html.DisplayFor(modelItem => item.TargetingEfficiency)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BaseTurnsToArm)
+                @Html.DisplayFor(modelItem => item.OptimalRange)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EffectiveRange)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BaseCriticalHitChance)

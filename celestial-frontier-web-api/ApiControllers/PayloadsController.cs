@@ -14,9 +14,9 @@ namespace celestial_frontier_web_api.ApiControllers
     [ApiController]
     public class PayloadsController : ControllerBase
     {
-        private readonly CelestialFrontierContext _context;
+        private readonly CelestialFrontier_DevContext _context;
 
-        public PayloadsController(CelestialFrontierContext context)
+        public PayloadsController(CelestialFrontier_DevContext context)
         {
             _context = context;
         }
@@ -100,7 +100,7 @@ namespace celestial_frontier_web_api.ApiControllers
         {
           if (_context.Payloads == null)
           {
-              return Problem("Entity set 'CelestialFrontierContext.Payloads'  is null.");
+              return Problem("Entity set 'CelestialFrontier_DevContext.Payloads'  is null.");
           }
             _context.Payloads.Add(payload);
             try

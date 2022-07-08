@@ -14,9 +14,9 @@ namespace celestial_frontier_web_api.ApiControllers
     [ApiController]
     public class WeaponFramesController : ControllerBase
     {
-        private readonly CelestialFrontierContext _context;
+        private readonly CelestialFrontier_DevContext _context;
 
-        public WeaponFramesController(CelestialFrontierContext context)
+        public WeaponFramesController(CelestialFrontier_DevContext context)
         {
             _context = context;
         }
@@ -99,7 +99,7 @@ namespace celestial_frontier_web_api.ApiControllers
         {
           if (_context.WeaponFrames == null)
           {
-              return Problem("Entity set 'CelestialFrontierContext.WeaponFrames'  is null.");
+              return Problem("Entity set 'CelestialFrontier_DevContext.WeaponFrames'  is null.");
           }
             _context.WeaponFrames.Add(weaponFrame);
             try

@@ -10,6 +10,8 @@
         public string Title { get; set; } = null!;
         public string Description { get; set; } = null!;
 
+        public ArmorDto() {
+        }
         public ArmorDto(Armor armor) {
             this.ArmorGuid = armor.ArmorGuid;
             this.SpaceshipType = new SpaceshipTypeDto(armor.SpaceshipType);

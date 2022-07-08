@@ -1,0 +1,104 @@
+﻿@model celestial_frontier_web_api.Models.Carrier
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Carrier</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CarrierGuid" class="control-label"></label>
+                <input asp-for="CarrierGuid" class="form-control" value="@Guid.NewGuid()" disabled/>
+                <span asp-validation-for="CarrierGuid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpaceshipTypeGuid" class="control-label"></label>
+                <select asp-for="SpaceshipTypeGuid" class ="form-control" asp-items="ViewBag.SpaceshipTypeGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpaceshipCategoryGuid" class="control-label"></label>
+                <select asp-for="SpaceshipCategoryGuid" class ="form-control" asp-items="ViewBag.SpaceshipCategoryGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="WeaponPowerLevelGuid" class="control-label"></label>
+                <select asp-for="WeaponPowerLevelGuid" class ="form-control" asp-items="ViewBag.WeaponPowerLevelGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PointDefenseSystemPowerLevelGuid" class="control-label"></label>
+                <select asp-for="PointDefenseSystemPowerLevelGuid" class ="form-control" asp-items="ViewBag.PointDefenseSystemPowerLevelGuid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Class" class="control-label"></label>
+                <input asp-for="Class" class="form-control" />
+                <span asp-validation-for="Class" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HullMass" class="control-label"></label>
+                <input asp-for="HullMass" class="form-control" />
+                <span asp-validation-for="HullMass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecificHeatCapacity" class="control-label"></label>
+                <input asp-for="SpecificHeatCapacity" class="form-control" />
+                <span asp-validation-for="SpecificHeatCapacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BaseHullHealth" class="control-label"></label>
+                <input asp-for="BaseHullHealth" class="form-control" />
+                <span asp-validation-for="BaseHullHealth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BaseCrewCost" class="control-label"></label>
+                <input asp-for="BaseCrewCost" class="form-control" />
+                <span asp-validation-for="BaseCrewCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModulePointLimit" class="control-label"></label>
+                <input asp-for="ModulePointLimit" class="form-control" />
+                <span asp-validation-for="ModulePointLimit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FighterBays" class="control-label"></label>
+                <input asp-for="FighterBays" class="form-control" />
+                <span asp-validation-for="FighterBays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CorvetteBays" class="control-label"></label>
+                <input asp-for="CorvetteBays" class="form-control" />
+                <span asp-validation-for="CorvetteBays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FrigateBays" class="control-label"></label>
+                <input asp-for="FrigateBays" class="form-control" />
+                <span asp-validation-for="FrigateBays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DestroyerBays" class="control-label"></label>
+                <input asp-for="DestroyerBays" class="form-control" />
+                <span asp-validation-for="DestroyerBays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

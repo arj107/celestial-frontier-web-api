@@ -10,6 +10,7 @@
         public string Title { get; set; } = null!;
         public string Description { get; set; } = null!;
 
+        public FuelSystemDto() {}
         public FuelSystemDto(FuelSystem fuelSystem) {
             this.FuelSystemGuid = fuelSystem.FuelSystemGuid;
             this.SpaceshipType = new SpaceshipTypeDto(fuelSystem.SpaceshipType);

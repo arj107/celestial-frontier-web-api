@@ -1,0 +1,30 @@
+﻿@model celestial_frontier_web_api.Models.FleetFrigate
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>FleetFrigate</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Fleet)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Fleet.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FrigateConfiguration)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FrigateConfiguration.FrigateConfigurationGuid)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.FleetFrigateGuid">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

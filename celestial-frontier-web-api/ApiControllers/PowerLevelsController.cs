@@ -14,9 +14,9 @@ namespace celestial_frontier_web_api.ApiControllers
     [ApiController]
     public class PowerLevelsController : ControllerBase
     {
-        private readonly CelestialFrontierContext _context;
+        private readonly CelestialFrontier_DevContext _context;
 
-        public PowerLevelsController(CelestialFrontierContext context)
+        public PowerLevelsController(CelestialFrontier_DevContext context)
         {
             _context = context;
         }
@@ -97,7 +97,7 @@ namespace celestial_frontier_web_api.ApiControllers
         {
           if (_context.PowerLevels == null)
           {
-              return Problem("Entity set 'CelestialFrontierContext.PowerLevels'  is null.");
+              return Problem("Entity set 'CelestialFrontier_DevContext.PowerLevels'  is null.");
           }
             _context.PowerLevels.Add(powerLevel);
             try

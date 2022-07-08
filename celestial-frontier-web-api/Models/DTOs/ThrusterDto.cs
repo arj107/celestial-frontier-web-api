@@ -10,6 +10,7 @@
         public string Title { get; set; } = null!;
         public string Description { get; set; } = null!;
 
+        public ThrusterDto() {}
         public ThrusterDto(Thruster thruster) {
             this.ThrusterGuid = thruster.ThrusterGuid;
             this.SpaceshipType = new SpaceshipTypeDto(thruster.SpaceshipType);

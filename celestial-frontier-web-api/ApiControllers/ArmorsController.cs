@@ -14,25 +14,30 @@ namespace celestial_frontier_web_api.ApiControllers
     [ApiController]
     public class ArmorsController : ControllerBase
     {
-        private readonly CelestialFrontierContext _context;
+        private readonly CelestialFrontier_DevContext _context;
 
-        public ArmorsController(CelestialFrontierContext context)
+        public ArmorsController(CelestialFrontier_DevContext context)
         {
             _context = context;
         }
 
-        // GET: api/Armors
+        // GET: api/Armors?spaceshipTypeGuid={spaceshipTypeGuid}
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ArmorDto>>> GetArmors()
+        public async Task<ActionResult<IEnumerable<ArmorDto>>> GetArmors([FromQuery] Guid? spaceshipTypeGuid = null)
         {
             if (_context.Armors == null)
             {
                 return NotFound();
             }
 
-            List<Armor> armorEntities = await _context.Armors
-              .Include(s => s.SpaceshipType)
-              .ToListAsync();
+            IQueryable<Armor> armorQueryables = _context.Armors
+              .Include(s => s.SpaceshipType);
+
+            if (spaceshipTypeGuid != null) {
+                armorQueryables = armorQueryables.Where(s => s.SpaceshipTypeGuid == spaceshipTypeGuid);
+            }
+
+            List<Armor> armorEntities = await armorQueryables.ToListAsync();
 
             List<ArmorDto> armorDtos = new List<ArmorDto>();
             foreach (Armor armor in armorEntities) {
@@ -98,7 +103,7 @@ namespace celestial_frontier_web_api.ApiControllers
         {
           if (_context.Armors == null)
           {
-              return Problem("Entity set 'CelestialFrontierContext.Armors'  is null.");
+              return Problem("Entity set 'CelestialFrontier_DevContext.Armors'  is null.");
           }
             _context.Armors.Add(armor);
             try

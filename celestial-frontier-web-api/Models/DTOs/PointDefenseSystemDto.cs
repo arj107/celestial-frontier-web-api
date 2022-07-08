@@ -11,6 +11,7 @@
         public string Title { get; set; } = null!;
         public string Description { get; set; } = null!;
 
+        public PointDefenseSystemDto() {}
         public PointDefenseSystemDto(PointDefenseSystem pointDefenseSystem) {
             this.PointDefenseSystemGuid = pointDefenseSystem.PointDefenseSystemGuid;
             this.PowerLevel = new PowerLevelDto(pointDefenseSystem.PowerLevel);

@@ -1,0 +1,101 @@
+﻿@model IEnumerable<celestial_frontier_web_api.Models.Destroyer>
+
+@{
+    ViewData["Title"] = "Destroyers";
+}
+
+<h1>Destroyers</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Class)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HullMass)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpecificHeatCapacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseHullHealth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseVigorCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseCrewCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModulePointLimit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PointDefenseSystemPowerLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpaceshipCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SpaceshipType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeaponPowerLevel)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Class)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HullMass)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpecificHeatCapacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BaseHullHealth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BaseVigorCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BaseCrewCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModulePointLimit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PointDefenseSystemPowerLevel.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpaceshipCategory.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SpaceshipType.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeaponPowerLevel.Text)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.DestroyerGuid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.DestroyerGuid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.DestroyerGuid">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
