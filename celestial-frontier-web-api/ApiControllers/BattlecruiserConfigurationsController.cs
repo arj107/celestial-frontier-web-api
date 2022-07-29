@@ -150,6 +150,37 @@ namespace celestial_frontier_web_api.ApiControllers
             return NoContent();
         }
 
+        // PUT: api/User/BattlecruiserConfigurations/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        [Authorize]
+        [Route("~/api/User/[controller]/{battlecruiserConfigurationGuid}")]
+        public async Task<IActionResult> PutUserBattlecruiserConfiguration(
+            Guid battlecruiserConfigurationGuid, 
+            [FromBody]BattlecruiserConfiguration battlecruiserConfiguration
+        ) {
+
+            if (battlecruiserConfigurationGuid != battlecruiserConfiguration.BattlecruiserConfigurationGuid) {
+                return BadRequest();
+            }
+
+            _context.Entry(battlecruiserConfiguration).State = EntityState.Modified;
+
+            
+
+            try {
+                await _context.SaveChangesAsync();
+            } catch (DbUpdateConcurrencyException) {
+                if (!BattlecruiserConfigurationExists(battlecruiserConfigurationGuid)) {
+                    return NotFound();
+                } else {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         // POST: api/BattlecruiserConfigurations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]

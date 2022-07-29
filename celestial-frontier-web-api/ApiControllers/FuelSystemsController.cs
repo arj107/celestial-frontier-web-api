@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using celestial_frontier_web_api.Models;
 using celestial_frontier_web_api.Models.DTOs;
+using AutoMapper;
+using celestial_frontier_web_api.Services;
 
 namespace celestial_frontier_web_api.ApiControllers
 {
@@ -15,29 +17,33 @@ namespace celestial_frontier_web_api.ApiControllers
     public class FuelSystemsController : ControllerBase
     {
         private readonly CelestialFrontier_DevContext _context;
+        private readonly IMapper _mapper;
+        private readonly IJWTAuthenticationService _jwtService;
 
-        public FuelSystemsController(CelestialFrontier_DevContext context)
+        public FuelSystemsController(CelestialFrontier_DevContext context, IMapper mapper, IJWTAuthenticationService jwtService)
         {
             _context = context;
+            _mapper = mapper;
+            _jwtService = jwtService;
         }
 
-        // GET: api/FuelSystems
+        // GET: api/FuelSystems?spaceshipTypeGuid={spaceshipTypeGuid}
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FuelSystemDto>>> GetFuelSystems()
+        public async Task<ActionResult<IEnumerable<FuelSystemDto>>> GetFuelSystems([FromQuery] Guid? spaceshipTypeGuid = null)
         {
-            if (_context.FuelSystems == null)
-            {
+            if (_context.FuelSystems == null) {
                 return NotFound();
             }
 
-            List<FuelSystem> fuelSystemEntities = await _context.FuelSystems
-              .Include(s => s.SpaceshipType)
-              .ToListAsync();
+            IQueryable<FuelSystem> fuelSystemQueryables = _context.FuelSystems
+              .Include(s => s.SpaceshipType);
 
-            List<FuelSystemDto> fuelSystemDtos = new List<FuelSystemDto>();
-            foreach (FuelSystem fuelSystem in fuelSystemEntities) {
-                fuelSystemDtos.Add(new FuelSystemDto(fuelSystem));
+            if (spaceshipTypeGuid != null) {
+                fuelSystemQueryables = fuelSystemQueryables.Where(s => s.SpaceshipTypeGuid == spaceshipTypeGuid);
             }
+
+            List<FuelSystem> fuelSystemEntities = await fuelSystemQueryables.ToListAsync();
+            List<FuelSystemDto> fuelSystemDtos = _mapper.Map<IEnumerable<FuelSystem>, List<FuelSystemDto>>(fuelSystemEntities);
 
             return fuelSystemDtos;
         }

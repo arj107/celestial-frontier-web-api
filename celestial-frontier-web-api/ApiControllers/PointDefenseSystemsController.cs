@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using celestial_frontier_web_api.Models;
 using celestial_frontier_web_api.Models.DTOs;
+using AutoMapper;
+using celestial_frontier_web_api.Services;
 
 namespace celestial_frontier_web_api.ApiControllers
 {
@@ -15,29 +17,54 @@ namespace celestial_frontier_web_api.ApiControllers
     public class PointDefenseSystemsController : ControllerBase
     {
         private readonly CelestialFrontier_DevContext _context;
+        private readonly IMapper _mapper;
+        private readonly IJWTAuthenticationService _jwtService;
 
-        public PointDefenseSystemsController(CelestialFrontier_DevContext context)
+        public PointDefenseSystemsController(CelestialFrontier_DevContext context, IMapper mapper, IJWTAuthenticationService jwtService)
         {
             _context = context;
+            _mapper = mapper;
+            _jwtService = jwtService;
         }
 
-        // GET: api/PointDefenseSystems
+        // GET: api/PointDefenseSystems?maxPowerLevelGuid={maxPowerLevelGuid}
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PointDefenseSystemDto>>> GetPointDefenseSystems()
+        public async Task<ActionResult<IEnumerable<PointDefenseSystemDto>>> GetPointDefenseSystems([FromQuery] Guid? maxPowerLevelGuid = null)
         {
             if (_context.PointDefenseSystems == null)
             {
                 return NotFound();
             }
 
-            List<PointDefenseSystem> pointDefenseSystemEntities = await _context.PointDefenseSystems
-              .Include(s => s.PowerLevel)
-              .ToListAsync();
+            IQueryable<PointDefenseSystem> pointDefenseSystemQueryables = _context.PointDefenseSystems
+              .Include(s => s.PowerLevel);
 
-            List<PointDefenseSystemDto> pointDefenseSystemDtos = new List<PointDefenseSystemDto>();
-            foreach (PointDefenseSystem pointDefenseSystem in pointDefenseSystemEntities) {
-                pointDefenseSystemDtos.Add(new PointDefenseSystemDto(pointDefenseSystem));
+            // if maxPowerLevelGuid parameter is specified, we need to return all PDS entities
+            // that have a power level up to the max as specified by maxPowerLevelGuid
+            if (maxPowerLevelGuid != null) {
+                PowerLevel level3 = _context.PowerLevels.Single(p => p.Text == "Level 3");
+                PowerLevel level2 = _context.PowerLevels.Single(p => p.Text == "Level 2");
+                PowerLevel level1 = _context.PowerLevels.Single(p => p.Text == "Level 1");
+
+                if (level3.PowerLevelGuid == maxPowerLevelGuid) {
+                    // return the entire list of PDS, unfiltered
+                } else if (level2.PowerLevelGuid == maxPowerLevelGuid) {
+                    // return only level 2 and level 1 PDS
+                    pointDefenseSystemQueryables = pointDefenseSystemQueryables.Where(
+                        p => p.PowerLevelGuid == level2.PowerLevelGuid || p.PowerLevelGuid == level1.PowerLevelGuid
+                    );
+                } else if (level1.PowerLevelGuid == maxPowerLevelGuid) {
+                    // return only level 1 PDS
+                    pointDefenseSystemQueryables = pointDefenseSystemQueryables.Where(
+                        p => p.PowerLevelGuid == level1.PowerLevelGuid
+                    );
+                } else {
+                    return NotFound();
+                }
             }
+
+            List<PointDefenseSystem> pointDefenseSystemEntities = await pointDefenseSystemQueryables.ToListAsync();
+            List<PointDefenseSystemDto> pointDefenseSystemDtos = _mapper.Map<IEnumerable<PointDefenseSystem>, List<PointDefenseSystemDto>>(pointDefenseSystemEntities);
 
             return pointDefenseSystemDtos;
         }

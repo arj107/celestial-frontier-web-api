@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using celestial_frontier_web_api.Models;
 using celestial_frontier_web_api.Models.DTOs;
+using celestial_frontier_web_api.Services;
+using AutoMapper;
 
 namespace celestial_frontier_web_api.ApiControllers
 {
@@ -15,10 +17,14 @@ namespace celestial_frontier_web_api.ApiControllers
     public class ArmorsController : ControllerBase
     {
         private readonly CelestialFrontier_DevContext _context;
+        private readonly IMapper _mapper;
+        private readonly IJWTAuthenticationService _jwtService;
 
-        public ArmorsController(CelestialFrontier_DevContext context)
+        public ArmorsController(CelestialFrontier_DevContext context, IMapper mapper, IJWTAuthenticationService jwtService)
         {
             _context = context;
+            _mapper = mapper;
+            _jwtService = jwtService;
         }
 
         // GET: api/Armors?spaceshipTypeGuid={spaceshipTypeGuid}
@@ -38,11 +44,7 @@ namespace celestial_frontier_web_api.ApiControllers
             }
 
             List<Armor> armorEntities = await armorQueryables.ToListAsync();
-
-            List<ArmorDto> armorDtos = new List<ArmorDto>();
-            foreach (Armor armor in armorEntities) {
-                armorDtos.Add(new ArmorDto(armor));
-            }
+            List<ArmorDto> armorDtos = _mapper.Map<IEnumerable<Armor>, List<ArmorDto>>(armorEntities);
 
             return armorDtos;
         }

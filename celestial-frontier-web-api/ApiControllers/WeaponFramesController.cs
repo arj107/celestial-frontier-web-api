@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using celestial_frontier_web_api.Models;
 using celestial_frontier_web_api.Models.DTOs;
+using AutoMapper;
+using celestial_frontier_web_api.Services;
 
 namespace celestial_frontier_web_api.ApiControllers
 {
@@ -15,10 +17,14 @@ namespace celestial_frontier_web_api.ApiControllers
     public class WeaponFramesController : ControllerBase
     {
         private readonly CelestialFrontier_DevContext _context;
+        private readonly IMapper _mapper;
+        private readonly IJWTAuthenticationService _jwtService;
 
-        public WeaponFramesController(CelestialFrontier_DevContext context)
+        public WeaponFramesController(CelestialFrontier_DevContext context, IMapper mapper, IJWTAuthenticationService jwtService)
         {
             _context = context;
+            _mapper = mapper;
+            _jwtService = jwtService;
         }
 
         // GET: api/WeaponFrames
@@ -35,10 +41,7 @@ namespace celestial_frontier_web_api.ApiControllers
               .Include(s => s.PowerLevel)
               .ToListAsync();
 
-            List<WeaponFrameDto> weaponFrameDtos = new List<WeaponFrameDto>();
-            foreach (WeaponFrame weaponFrame in weaponFrameEntities) {
-                weaponFrameDtos.Add(new WeaponFrameDto(weaponFrame));
-            }
+            List<WeaponFrameDto> weaponFrameDtos = _mapper.Map<IEnumerable<WeaponFrame>, List<WeaponFrameDto>>(weaponFrameEntities);
 
             return weaponFrameDtos;
         }

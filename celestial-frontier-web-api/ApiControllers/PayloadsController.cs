@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using celestial_frontier_web_api.Models;
 using celestial_frontier_web_api.Models.DTOs;
+using AutoMapper;
+using celestial_frontier_web_api.Services;
 
 namespace celestial_frontier_web_api.ApiControllers
 {
@@ -15,10 +17,14 @@ namespace celestial_frontier_web_api.ApiControllers
     public class PayloadsController : ControllerBase
     {
         private readonly CelestialFrontier_DevContext _context;
+        private readonly IMapper _mapper;
+        private readonly IJWTAuthenticationService _jwtService;
 
-        public PayloadsController(CelestialFrontier_DevContext context)
+        public PayloadsController(CelestialFrontier_DevContext context, IMapper mapper, IJWTAuthenticationService jwtService)
         {
             _context = context;
+            _mapper = mapper;
+            _jwtService = jwtService;
         }
 
         // GET: api/Payloads
@@ -36,10 +42,7 @@ namespace celestial_frontier_web_api.ApiControllers
               .Include(s => s.PowerLevel)
               .ToListAsync();
 
-            List<PayloadDto> payloadDtos = new List<PayloadDto>();
-            foreach (Payload payload in payloadEntities) {
-                payloadDtos.Add(new PayloadDto(payload));
-            }
+            List<PayloadDto> payloadDtos = _mapper.Map<IEnumerable<Payload>, List<PayloadDto>>(payloadEntities);
 
             return payloadDtos;
         }

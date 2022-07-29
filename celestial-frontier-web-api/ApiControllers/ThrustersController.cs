@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using celestial_frontier_web_api.Models;
 using celestial_frontier_web_api.Models.DTOs;
+using AutoMapper;
+using celestial_frontier_web_api.Services;
 
 namespace celestial_frontier_web_api.ApiControllers
 {
@@ -15,29 +17,33 @@ namespace celestial_frontier_web_api.ApiControllers
     public class ThrustersController : ControllerBase
     {
         private readonly CelestialFrontier_DevContext _context;
+        private readonly IMapper _mapper;
+        private readonly IJWTAuthenticationService _jwtService;
 
-        public ThrustersController(CelestialFrontier_DevContext context)
+        public ThrustersController(CelestialFrontier_DevContext context, IMapper mapper, IJWTAuthenticationService jwtService)
         {
             _context = context;
+            _mapper = mapper;
+            _jwtService = jwtService;
         }
 
-        // GET: api/Thrusters
+        // GET: api/Thrusters?spaceshipTypeGuid={spaceshipTypeGuid}
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ThrusterDto>>> GetThrusters()
+        public async Task<ActionResult<IEnumerable<ThrusterDto>>> GetThrusters([FromQuery] Guid? spaceshipTypeGuid = null)
         {
-            if (_context.Thrusters == null)
-            {
+            if (_context.Thrusters == null) {
                 return NotFound();
             }
 
-            List<Thruster> thrusterEntities = await _context.Thrusters
-              .Include(s => s.SpaceshipType)
-              .ToListAsync();
+            IQueryable<Thruster> thrusterQueryables = _context.Thrusters
+              .Include(s => s.SpaceshipType);
 
-            List<ThrusterDto> thrusterDtos = new List<ThrusterDto>();
-            foreach (Thruster thruster in thrusterEntities) {
-                thrusterDtos.Add(new ThrusterDto(thruster));
+            if (spaceshipTypeGuid != null) {
+                thrusterQueryables = thrusterQueryables.Where(s => s.SpaceshipTypeGuid == spaceshipTypeGuid);
             }
+
+            List<Thruster> thrusterEntities = await thrusterQueryables.ToListAsync();
+            List<ThrusterDto> thrusterDtos = _mapper.Map<IEnumerable<Thruster>, List<ThrusterDto>>(thrusterEntities);
 
             return thrusterDtos;
         }
