@@ -6,7 +6,7 @@
         public ArmorDto Armor {
             get; set;
         }
-        public CarrierDto Carrier {
+        public FighterDto Fighter {
             get; set;
         }
         public FuelSystemDto FuelSystem {
