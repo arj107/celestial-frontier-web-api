@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using celestial_frontier_web_api.Models;
+using AutoMapper;
+using celestial_frontier_web_api.Services;
+using Microsoft.AspNetCore.Authorization;
+using celestial_frontier_web_api.Models.DTOs;
 
 namespace celestial_frontier_web_api.ApiControllers
 {
@@ -14,10 +18,14 @@ namespace celestial_frontier_web_api.ApiControllers
     public class DestroyerConfigurationsController : ControllerBase
     {
         private readonly CelestialFrontier_DevContext _context;
+        private readonly IMapper _mapper;
+        private readonly IJWTAuthenticationService _jwtService;
 
-        public DestroyerConfigurationsController(CelestialFrontier_DevContext context)
+        public DestroyerConfigurationsController(CelestialFrontier_DevContext context, IMapper mapper, IJWTAuthenticationService jwtService)
         {
             _context = context;
+            _mapper = mapper;
+            _jwtService = jwtService;
         }
 
         // GET: api/DestroyerConfigurations
@@ -25,6 +33,76 @@ namespace celestial_frontier_web_api.ApiControllers
         public async Task<ActionResult<IEnumerable<DestroyerConfiguration>>> GetDestroyerConfigurations()
         {
             return await _context.DestroyerConfigurations.ToListAsync();
+        }
+
+        // GET: api/User/DestroyerConfigurations
+        [HttpGet]
+        [Authorize]
+        [Route("~/api/User/[controller]")]
+        public async Task<ActionResult<IEnumerable<DestroyerConfigurationDto>>> GetUserDestroyerConfigurations() {
+            Guid userGuid = _jwtService.GetUserGuid(HttpContext);
+
+            List<DestroyerConfiguration> destroyerConfigurations = await _context.DestroyerConfigurations.Where(f => f.UserGuid == userGuid)
+                .Include(f => f.User)
+                .Include("Armor.SpaceshipType")
+                .Include("Destroyer.PointDefenseSystemPowerLevel")
+                .Include("Destroyer.SpaceshipCategory")
+                .Include("Destroyer.SpaceshipType")
+                .Include("Destroyer.WeaponPowerLevel")
+                .Include("FuelSystem.SpaceshipType")
+                .Include("Payload1.PayloadType")
+                .Include("Payload1.PowerLevel")
+                .Include("Payload1.WeaponFrameType")
+                .Include("Payload2.PayloadType")
+                .Include("Payload2.PowerLevel")
+                .Include("Payload2.WeaponFrameType")
+                .Include("PointDefenseSystem.PowerLevel")
+                .Include("Thruster.SpaceshipType")
+                .Include("WeaponFrame1.PowerLevel")
+                .Include("WeaponFrame1.WeaponFrameType")
+                .Include("WeaponFrame2.PowerLevel")
+                .Include("WeaponFrame2.WeaponFrameType")
+                .ToListAsync();
+            List<DestroyerConfigurationDto> destroyerConfigurationDtos = _mapper.Map<IEnumerable<DestroyerConfiguration>, List<DestroyerConfigurationDto>>(destroyerConfigurations);
+            return Ok(destroyerConfigurationDtos);
+        }
+
+        // GET: api/User/DestroyerConfigurations/{destroyerConfigurationGuid}
+        [HttpGet]
+        [Authorize]
+        [Route("~/api/User/[controller]/{destroyerConfigurationGuid}")]
+        public async Task<ActionResult<DestroyerConfigurationDto>> GetUserDestroyerConfiguration(Guid destroyerConfigurationGuid) {
+            Guid userGuid = _jwtService.GetUserGuid(HttpContext);
+
+            DestroyerConfiguration destroyerConfiguration = await _context.DestroyerConfigurations.Where(f => f.DestroyerConfigurationGuid == destroyerConfigurationGuid)
+                .Include(f => f.User)
+                .Include("Armor.SpaceshipType")
+                .Include("Destroyer.PointDefenseSystemPowerLevel")
+                .Include("Destroyer.SpaceshipCategory")
+                .Include("Destroyer.SpaceshipType")
+                .Include("Destroyer.WeaponPowerLevel")
+                .Include("FuelSystem.SpaceshipType")
+                .Include("Payload1.PayloadType")
+                .Include("Payload1.PowerLevel")
+                .Include("Payload1.WeaponFrameType")
+                .Include("Payload2.PayloadType")
+                .Include("Payload2.PowerLevel")
+                .Include("Payload2.WeaponFrameType")
+                .Include("PointDefenseSystem.PowerLevel")
+                .Include("Thruster.SpaceshipType")
+                .Include("WeaponFrame1.PowerLevel")
+                .Include("WeaponFrame1.WeaponFrameType")
+                .Include("WeaponFrame2.PowerLevel")
+                .Include("WeaponFrame2.WeaponFrameType")
+
+                .FirstOrDefaultAsync(f => f.UserGuid == userGuid && f.DestroyerConfigurationGuid == destroyerConfigurationGuid);
+
+            if (destroyerConfiguration == null) {
+                return NotFound();
+            }
+
+            DestroyerConfigurationDto destroyerConfigurationDto = _mapper.Map<DestroyerConfiguration, DestroyerConfigurationDto>(destroyerConfiguration);
+            return Ok(destroyerConfigurationDto);
         }
 
         // GET: api/DestroyerConfigurations/5
@@ -65,6 +143,37 @@ namespace celestial_frontier_web_api.ApiControllers
                 }
                 else
                 {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // PUT: api/User/DestroyerConfigurations/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        [Authorize]
+        [Route("~/api/User/[controller]/{destroyerConfigurationGuid}")]
+        public async Task<IActionResult> PutUserDestroyerConfiguration(
+            Guid destroyerConfigurationGuid,
+            [FromBody] DestroyerConfiguration destroyerConfiguration
+        ) {
+
+            if (destroyerConfigurationGuid != destroyerConfiguration.DestroyerConfigurationGuid) {
+                return BadRequest();
+            }
+
+            _context.Entry(destroyerConfiguration).State = EntityState.Modified;
+
+
+
+            try {
+                await _context.SaveChangesAsync();
+            } catch (DbUpdateConcurrencyException) {
+                if (!DestroyerConfigurationExists(destroyerConfigurationGuid)) {
+                    return NotFound();
+                } else {
                     throw;
                 }
             }
