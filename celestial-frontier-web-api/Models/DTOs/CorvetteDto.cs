@@ -3,7 +3,7 @@
         public Guid CorvetteGuid {
             get; set;
         }
-        public SpaceshipCategoryDto SpaceshipType {
+        public SpaceshipTypeDto SpaceshipType {
             get; set;
         }
         public SpaceshipCategoryDto SpaceshipCategory {

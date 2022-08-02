@@ -11,6 +11,8 @@ namespace celestial_frontier_web_api.Mappings {
             CreateMap<BattlecruiserDto, Battlecruiser>();
             CreateMap<Carrier, CarrierDto>();
             CreateMap<CarrierDto, Carrier>();
+            CreateMap<Corvette, CorvetteDto>();
+            CreateMap<CorvetteDto, Corvette>();
             CreateMap<Destroyer, DestroyerDto>();
             CreateMap<DestroyerDto, Destroyer>();
             CreateMap<Fighter, FighterDto>();
@@ -19,6 +21,8 @@ namespace celestial_frontier_web_api.Mappings {
             CreateMap<BattlecruiserConfigurationDto, BattlecruiserConfiguration>();
             CreateMap<CarrierConfiguration, CarrierConfigurationDto>();
             CreateMap<CarrierConfigurationDto, CarrierConfiguration>();
+            CreateMap<CorvetteConfiguration, CorvetteConfigurationDto>();
+            CreateMap<CorvetteConfigurationDto, CorvetteConfiguration>();
             CreateMap<DestroyerConfiguration, DestroyerConfigurationDto>();
             CreateMap<DestroyerConfigurationDto, DestroyerConfiguration>();
             CreateMap<FleetBattlecruiser, FleetBattlecruiserDto>();
