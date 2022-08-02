@@ -147,10 +147,10 @@ namespace celestial_frontier_web_api.ApiControllers
         [Route("~/api/User/[controller]/{fighterConfigurationGuid}")]
         public async Task<IActionResult> PutUserFighterConfiguration(
             Guid fighterConfigurationGuid,
-            [FromBody] FrigateConfiguration fighterConfiguration
+            [FromBody] FighterConfiguration fighterConfiguration
         ) {
 
-            if (fighterConfigurationGuid != fighterConfiguration.FrigateConfigurationGuid) {
+            if (fighterConfigurationGuid != fighterConfiguration.FighterConfigurationGuid) {
                 return BadRequest();
             }
 
