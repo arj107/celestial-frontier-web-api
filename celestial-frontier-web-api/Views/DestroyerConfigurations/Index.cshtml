@@ -52,7 +52,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Armor.Description)
+                @Html.DisplayFor(modelItem => item.Armor.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Destroyer.Class)
@@ -64,25 +64,25 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FuelSystem.Description)
+                @Html.DisplayFor(modelItem => item.FuelSystem.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Payload1.Description)
+                @Html.DisplayFor(modelItem => item.Payload1.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Payload2.Description)
+                @Html.DisplayFor(modelItem => item.Payload2.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PointDefenseSystem.Description)
+                @Html.DisplayFor(modelItem => item.PointDefenseSystem.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Thruster.Description)
+                @Html.DisplayFor(modelItem => item.Thruster.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WeaponFrame1.Description)
+                @Html.DisplayFor(modelItem => item.WeaponFrame1.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WeaponFrame2.Description)
+                @Html.DisplayFor(modelItem => item.WeaponFrame2.Title)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DestroyerConfigurationGuid">Edit</a> |

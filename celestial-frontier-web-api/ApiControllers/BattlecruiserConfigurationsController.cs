@@ -67,7 +67,7 @@ namespace celestial_frontier_web_api.ApiControllers
             return Ok(battlecruiserConfigurationDtos);
         }
 
-        // GET: api/User/Fleets
+        // GET: api/User/BattlecruiserConfigurations/{battlecruiserConfigurationGuid}
         [HttpGet]
         [Authorize]
         [Route("~/api/User/[controller]/{battlecruiserConfigurationGuid}")]

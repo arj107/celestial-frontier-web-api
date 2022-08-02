@@ -46,7 +46,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Armor.Description)
+                @Html.DisplayFor(modelItem => item.Armor.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Corvette.Class)
@@ -58,19 +58,19 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FuelSystem.Description)
+                @Html.DisplayFor(modelItem => item.FuelSystem.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Payload.Description)
+                @Html.DisplayFor(modelItem => item.Payload.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PointDefenseSystem.Description)
+                @Html.DisplayFor(modelItem => item.PointDefenseSystem.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Thruster.Description)
+                @Html.DisplayFor(modelItem => item.Thruster.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WeaponFrame.Description)
+                @Html.DisplayFor(modelItem => item.WeaponFrame.Title)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CorvetteConfigurationGuid">Edit</a> |
