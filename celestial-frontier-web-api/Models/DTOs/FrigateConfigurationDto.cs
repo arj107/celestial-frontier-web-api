@@ -6,7 +6,7 @@
         public ArmorDto Armor {
             get; set;
         }
-        public CarrierDto Carrier {
+        public FrigateDto Frigate {
             get; set;
         }
         public FleetDto Fleet {
