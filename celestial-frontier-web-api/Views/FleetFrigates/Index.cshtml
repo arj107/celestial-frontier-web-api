@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Fleet)
+                @Html.DisplayNameFor(model => model.FleetCarrier)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FrigateConfiguration)
@@ -25,10 +25,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Fleet.Name)
+                @Html.DisplayFor(modelItem => item.FleetCarrier.FleetCarrierGuid)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FrigateConfiguration.FrigateConfigurationGuid)
+                @Html.DisplayFor(modelItem => item.FrigateConfiguration.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.FleetFrigateGuid">Edit</a> |

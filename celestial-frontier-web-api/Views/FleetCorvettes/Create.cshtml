@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FleetCorvetteGuid" class="control-label"></label>
-                <input asp-for="FleetCorvetteGuid" class="form-control" value="@Guid.NewGuid()" disabled/>
+                <input asp-for="FleetCorvetteGuid" class="form-control" />
                 <span asp-validation-for="FleetCorvetteGuid" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -22,8 +22,8 @@
                 <select asp-for="CorvetteConfigurationGuid" class ="form-control" asp-items="ViewBag.CorvetteConfigurationGuid"></select>
             </div>
             <div class="form-group">
-                <label asp-for="FleetGuid" class="control-label"></label>
-                <select asp-for="FleetGuid" class ="form-control" asp-items="ViewBag.FleetGuid"></select>
+                <label asp-for="FleetCarrierGuid" class="control-label"></label>
+                <select asp-for="FleetCarrierGuid" class ="form-control" asp-items="ViewBag.FleetCarrierGuid"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
