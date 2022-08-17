@@ -15,9 +15,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.CarrierConfiguration)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fleet)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -25,10 +22,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CarrierConfiguration.CarrierConfigurationGuid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fleet.Name)
+                @Html.DisplayFor(modelItem => item.CarrierConfiguration.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.FleetCarrierGuid">Edit</a> |

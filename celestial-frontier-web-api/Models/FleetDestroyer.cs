@@ -7,9 +7,9 @@ namespace celestial_frontier_web_api.Models
     {
         public Guid FleetDestroyerGuid { get; set; }
         public Guid DestroyerConfigurationGuid { get; set; }
-        public Guid FleetGuid { get; set; }
+        public Guid FleetCarrierGuid { get; set; }
 
         public virtual DestroyerConfiguration DestroyerConfiguration { get; set; }
-        public virtual Fleet Fleet { get; set; }
+        public virtual FleetCarrier FleetCarrier { get; set; }
     }
 }

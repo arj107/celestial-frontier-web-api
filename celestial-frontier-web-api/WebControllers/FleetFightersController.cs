@@ -21,7 +21,7 @@ namespace celestial_frontier_web_api.WebControllers
         // GET: FleetFighters
         public async Task<IActionResult> Index()
         {
-            var celestialFrontier_DevContext = _context.FleetFighters.Include(f => f.FighterConfiguration).Include(f => f.Fleet);
+            var celestialFrontier_DevContext = _context.FleetFighters.Include(f => f.FighterConfiguration).Include(f => f.FleetCarrier);
             return View(await celestialFrontier_DevContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace celestial_frontier_web_api.WebControllers
 
             var fleetFighter = await _context.FleetFighters
                 .Include(f => f.FighterConfiguration)
-                .Include(f => f.Fleet)
+                .Include(f => f.FleetCarrier)
                 .FirstOrDefaultAsync(m => m.FleetFighterGuid == id);
             if (fleetFighter == null)
             {
@@ -49,7 +49,7 @@ namespace celestial_frontier_web_api.WebControllers
         public IActionResult Create()
         {
             ViewData["FighterConfigurationGuid"] = new SelectList(_context.FighterConfigurations, "FighterConfigurationGuid", "Name");
-            ViewData["FleetGuid"] = new SelectList(_context.Fleets, "FleetGuid", "Name");
+            ViewData["FleetCarrierGuid"] = new SelectList(_context.FleetCarriers, "FleetCarrierGuid", "FleetCarrierGuid");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace celestial_frontier_web_api.WebControllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FleetFighterGuid,FighterConfigurationGuid,FleetGuid")] FleetFighter fleetFighter)
+        public async Task<IActionResult> Create([Bind("FleetFighterGuid,FighterConfigurationGuid,FleetCarrierGuid")] FleetFighter fleetFighter)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace celestial_frontier_web_api.WebControllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FighterConfigurationGuid"] = new SelectList(_context.FighterConfigurations, "FighterConfigurationGuid", "Name", fleetFighter.FighterConfigurationGuid);
-            ViewData["FleetGuid"] = new SelectList(_context.Fleets, "FleetGuid", "Name", fleetFighter.FleetGuid);
+            ViewData["FleetCarrierGuid"] = new SelectList(_context.FleetCarriers, "FleetCarrierGuid", "FleetCarrierGuid", fleetFighter.FleetCarrierGuid);
             return View(fleetFighter);
         }
 
@@ -86,7 +86,7 @@ namespace celestial_frontier_web_api.WebControllers
                 return NotFound();
             }
             ViewData["FighterConfigurationGuid"] = new SelectList(_context.FighterConfigurations, "FighterConfigurationGuid", "Name", fleetFighter.FighterConfigurationGuid);
-            ViewData["FleetGuid"] = new SelectList(_context.Fleets, "FleetGuid", "Name", fleetFighter.FleetGuid);
+            ViewData["FleetCarrierGuid"] = new SelectList(_context.FleetCarriers, "FleetCarrierGuid", "FleetCarrierGuid", fleetFighter.FleetCarrierGuid);
             return View(fleetFighter);
         }
 
@@ -95,7 +95,7 @@ namespace celestial_frontier_web_api.WebControllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("FleetFighterGuid,FighterConfigurationGuid,FleetGuid")] FleetFighter fleetFighter)
+        public async Task<IActionResult> Edit(Guid id, [Bind("FleetFighterGuid,FighterConfigurationGuid,FleetCarrierGuid")] FleetFighter fleetFighter)
         {
             if (id != fleetFighter.FleetFighterGuid)
             {
@@ -123,7 +123,7 @@ namespace celestial_frontier_web_api.WebControllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["FighterConfigurationGuid"] = new SelectList(_context.FighterConfigurations, "FighterConfigurationGuid", "Name", fleetFighter.FighterConfigurationGuid);
-            ViewData["FleetGuid"] = new SelectList(_context.Fleets, "FleetGuid", "Name", fleetFighter.FleetGuid);
+            ViewData["FleetCarrierGuid"] = new SelectList(_context.FleetCarriers, "FleetCarrierGuid", "FleetCarrierGuid", fleetFighter.FleetCarrierGuid);
             return View(fleetFighter);
         }
 
@@ -137,7 +137,7 @@ namespace celestial_frontier_web_api.WebControllers
 
             var fleetFighter = await _context.FleetFighters
                 .Include(f => f.FighterConfiguration)
-                .Include(f => f.Fleet)
+                .Include(f => f.FleetCarrier)
                 .FirstOrDefaultAsync(m => m.FleetFighterGuid == id);
             if (fleetFighter == null)
             {

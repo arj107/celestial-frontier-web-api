@@ -53,7 +53,7 @@ namespace celestial_frontier_web_api.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Name=CelestialFrontier_Dev");
+                optionsBuilder.UseSqlServer("Name=ConnectionStrings:CelestialFrontier_Dev");
             }
         }
 
@@ -120,6 +120,10 @@ namespace celestial_frontier_web_api.Models
                 entity.HasKey(e => e.BattlecruiserConfigurationGuid);
 
                 entity.Property(e => e.BattlecruiserConfigurationGuid).ValueGeneratedNever();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.Armor)
                     .WithMany(p => p.BattlecruiserConfigurations)
@@ -225,6 +229,10 @@ namespace celestial_frontier_web_api.Models
 
                 entity.Property(e => e.CarrierConfigurationGuid).ValueGeneratedNever();
 
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
                 entity.HasOne(d => d.Armor)
                     .WithMany(p => p.CarrierConfigurations)
                     .HasForeignKey(d => d.ArmorGuid)
@@ -317,6 +325,10 @@ namespace celestial_frontier_web_api.Models
 
                 entity.Property(e => e.CorvetteConfigurationGuid).ValueGeneratedNever();
 
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
                 entity.HasOne(d => d.Armor)
                     .WithMany(p => p.CorvetteConfigurations)
                     .HasForeignKey(d => d.ArmorGuid)
@@ -408,6 +420,10 @@ namespace celestial_frontier_web_api.Models
                 entity.HasKey(e => e.DestroyerConfigurationGuid);
 
                 entity.Property(e => e.DestroyerConfigurationGuid).ValueGeneratedNever();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.Armor)
                     .WithMany(p => p.DestroyerConfigurations)
@@ -513,6 +529,10 @@ namespace celestial_frontier_web_api.Models
 
                 entity.Property(e => e.FighterConfigurationGuid).ValueGeneratedNever();
 
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
                 entity.HasOne(d => d.Armor)
                     .WithMany(p => p.FighterConfigurations)
                     .HasForeignKey(d => d.ArmorGuid)
@@ -572,6 +592,16 @@ namespace celestial_frontier_web_api.Models
                     .IsRequired()
                     .HasMaxLength(50);
 
+                entity.HasOne(d => d.FleetCarrier1)
+                    .WithMany(p => p.FleetFleetCarrier1s)
+                    .HasForeignKey(d => d.FleetCarrier1Guid)
+                    .HasConstraintName("FK_Fleets_FleetCarriers1");
+
+                entity.HasOne(d => d.FleetCarrier2)
+                    .WithMany(p => p.FleetFleetCarrier2s)
+                    .HasForeignKey(d => d.FleetCarrier2Guid)
+                    .HasConstraintName("FK_Fleets_FleetCarriers2");
+
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Fleets)
                     .HasForeignKey(d => d.UserGuid)
@@ -591,17 +621,12 @@ namespace celestial_frontier_web_api.Models
                     .HasForeignKey(d => d.BattlecruiserConfigurationGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FleetBattlecruisers_BattlecruiserConfigurations");
-
-                entity.HasOne(d => d.Fleet)
-                    .WithMany(p => p.FleetBattlecruisers)
-                    .HasForeignKey(d => d.FleetGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetBattlecruisers_Fleets1");
             });
 
             modelBuilder.Entity<FleetCarrier>(entity =>
             {
-                entity.HasKey(e => e.FleetCarrierGuid);
+                entity.HasKey(e => e.FleetCarrierGuid)
+                    .HasName("PK_FleetCarriers_1");
 
                 entity.Property(e => e.FleetCarrierGuid).ValueGeneratedNever();
 
@@ -610,17 +635,12 @@ namespace celestial_frontier_web_api.Models
                     .HasForeignKey(d => d.CarrierConfigurationGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FleetCarriers_CarrierConfigurations");
-
-                entity.HasOne(d => d.Fleet)
-                    .WithMany(p => p.FleetCarriers)
-                    .HasForeignKey(d => d.FleetGuid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCarriers_Fleets");
             });
 
             modelBuilder.Entity<FleetCorvette>(entity =>
             {
-                entity.HasKey(e => e.FleetCorvetteGuid);
+                entity.HasKey(e => e.FleetCorvetteGuid)
+                    .HasName("PK_FleetCorvettes_1");
 
                 entity.Property(e => e.FleetCorvetteGuid).ValueGeneratedNever();
 
@@ -630,16 +650,17 @@ namespace celestial_frontier_web_api.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FleetCorvettes_CorvetteConfigurations");
 
-                entity.HasOne(d => d.Fleet)
+                entity.HasOne(d => d.FleetCarrier)
                     .WithMany(p => p.FleetCorvettes)
-                    .HasForeignKey(d => d.FleetGuid)
+                    .HasForeignKey(d => d.FleetCarrierGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetCorvettes_Fleets");
+                    .HasConstraintName("FK_FleetCorvettes_FleetCarriers");
             });
 
             modelBuilder.Entity<FleetDestroyer>(entity =>
             {
-                entity.HasKey(e => e.FleetDestroyerGuid);
+                entity.HasKey(e => e.FleetDestroyerGuid)
+                    .HasName("PK_FleetDestroyers_1");
 
                 entity.Property(e => e.FleetDestroyerGuid).ValueGeneratedNever();
 
@@ -649,16 +670,17 @@ namespace celestial_frontier_web_api.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FleetDestroyers_DestroyerConfigurations");
 
-                entity.HasOne(d => d.Fleet)
+                entity.HasOne(d => d.FleetCarrier)
                     .WithMany(p => p.FleetDestroyers)
-                    .HasForeignKey(d => d.FleetGuid)
+                    .HasForeignKey(d => d.FleetCarrierGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetDestroyers_Fleets");
+                    .HasConstraintName("FK_FleetDestroyers_FleetCarriers");
             });
 
             modelBuilder.Entity<FleetFighter>(entity =>
             {
-                entity.HasKey(e => e.FleetFighterGuid);
+                entity.HasKey(e => e.FleetFighterGuid)
+                    .HasName("PK_FleetFighters_1");
 
                 entity.Property(e => e.FleetFighterGuid).ValueGeneratedNever();
 
@@ -668,24 +690,25 @@ namespace celestial_frontier_web_api.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_FleetFighters_FighterConfigurations");
 
-                entity.HasOne(d => d.Fleet)
+                entity.HasOne(d => d.FleetCarrier)
                     .WithMany(p => p.FleetFighters)
-                    .HasForeignKey(d => d.FleetGuid)
+                    .HasForeignKey(d => d.FleetCarrierGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFighters_Fleets");
+                    .HasConstraintName("FK_FleetFighters_FleetCarriers");
             });
 
             modelBuilder.Entity<FleetFrigate>(entity =>
             {
-                entity.HasKey(e => e.FleetFrigateGuid);
+                entity.HasKey(e => e.FleetFrigateGuid)
+                    .HasName("PK_FleetFrigates_1");
 
                 entity.Property(e => e.FleetFrigateGuid).ValueGeneratedNever();
 
-                entity.HasOne(d => d.Fleet)
+                entity.HasOne(d => d.FleetCarrier)
                     .WithMany(p => p.FleetFrigates)
-                    .HasForeignKey(d => d.FleetGuid)
+                    .HasForeignKey(d => d.FleetCarrierGuid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FleetFrigates_Fleets");
+                    .HasConstraintName("FK_FleetFrigates_FleetCarriers");
 
                 entity.HasOne(d => d.FrigateConfiguration)
                     .WithMany(p => p.FleetFrigates)
@@ -736,6 +759,10 @@ namespace celestial_frontier_web_api.Models
                 entity.HasKey(e => e.FrigateConfigurationGuid);
 
                 entity.Property(e => e.FrigateConfigurationGuid).ValueGeneratedNever();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.Armor)
                     .WithMany(p => p.FrigateConfigurations)

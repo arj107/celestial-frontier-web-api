@@ -21,7 +21,7 @@ namespace celestial_frontier_web_api.WebControllers
         // GET: FleetCarriers
         public async Task<IActionResult> Index()
         {
-            var celestialFrontier_DevContext = _context.FleetCarriers.Include(f => f.CarrierConfiguration).Include(f => f.Fleet);
+            var celestialFrontier_DevContext = _context.FleetCarriers.Include(f => f.CarrierConfiguration);
             return View(await celestialFrontier_DevContext.ToListAsync());
         }
 
@@ -35,7 +35,6 @@ namespace celestial_frontier_web_api.WebControllers
 
             var fleetCarrier = await _context.FleetCarriers
                 .Include(f => f.CarrierConfiguration)
-                .Include(f => f.Fleet)
                 .FirstOrDefaultAsync(m => m.FleetCarrierGuid == id);
             if (fleetCarrier == null)
             {
@@ -49,7 +48,6 @@ namespace celestial_frontier_web_api.WebControllers
         public IActionResult Create()
         {
             ViewData["CarrierConfigurationGuid"] = new SelectList(_context.CarrierConfigurations, "CarrierConfigurationGuid", "Name");
-            ViewData["FleetGuid"] = new SelectList(_context.Fleets, "FleetGuid", "Name");
             return View();
         }
 
@@ -58,7 +56,7 @@ namespace celestial_frontier_web_api.WebControllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FleetCarrierGuid,CarrierConfigurationGuid,FleetGuid")] FleetCarrier fleetCarrier)
+        public async Task<IActionResult> Create([Bind("FleetCarrierGuid,CarrierConfigurationGuid")] FleetCarrier fleetCarrier)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +66,6 @@ namespace celestial_frontier_web_api.WebControllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CarrierConfigurationGuid"] = new SelectList(_context.CarrierConfigurations, "CarrierConfigurationGuid", "Name", fleetCarrier.CarrierConfigurationGuid);
-            ViewData["FleetGuid"] = new SelectList(_context.Fleets, "FleetGuid", "Name", fleetCarrier.FleetGuid);
             return View(fleetCarrier);
         }
 
@@ -86,7 +83,6 @@ namespace celestial_frontier_web_api.WebControllers
                 return NotFound();
             }
             ViewData["CarrierConfigurationGuid"] = new SelectList(_context.CarrierConfigurations, "CarrierConfigurationGuid", "Name", fleetCarrier.CarrierConfigurationGuid);
-            ViewData["FleetGuid"] = new SelectList(_context.Fleets, "FleetGuid", "Name", fleetCarrier.FleetGuid);
             return View(fleetCarrier);
         }
 
@@ -95,7 +91,7 @@ namespace celestial_frontier_web_api.WebControllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("FleetCarrierGuid,CarrierConfigurationGuid,FleetGuid")] FleetCarrier fleetCarrier)
+        public async Task<IActionResult> Edit(Guid id, [Bind("FleetCarrierGuid,CarrierConfigurationGuid")] FleetCarrier fleetCarrier)
         {
             if (id != fleetCarrier.FleetCarrierGuid)
             {
@@ -123,7 +119,6 @@ namespace celestial_frontier_web_api.WebControllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CarrierConfigurationGuid"] = new SelectList(_context.CarrierConfigurations, "CarrierConfigurationGuid", "Name", fleetCarrier.CarrierConfigurationGuid);
-            ViewData["FleetGuid"] = new SelectList(_context.Fleets, "FleetGuid", "Name", fleetCarrier.FleetGuid);
             return View(fleetCarrier);
         }
 
@@ -137,7 +132,6 @@ namespace celestial_frontier_web_api.WebControllers
 
             var fleetCarrier = await _context.FleetCarriers
                 .Include(f => f.CarrierConfiguration)
-                .Include(f => f.Fleet)
                 .FirstOrDefaultAsync(m => m.FleetCarrierGuid == id);
             if (fleetCarrier == null)
             {
