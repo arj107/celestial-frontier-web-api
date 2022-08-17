@@ -18,7 +18,6 @@ namespace celestial_frontier_web_api.Models
         public Guid FleetGuid { get; set; }
         public Guid UserGuid { get; set; }
         public string Name { get; set; }
-        public int CrewCapacity { get; set; }
 
         public virtual User User { get; set; }
         public virtual ICollection<FleetBattlecruiser> FleetBattlecruisers { get; set; }

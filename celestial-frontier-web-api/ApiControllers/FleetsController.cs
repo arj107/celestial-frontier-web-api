@@ -246,7 +246,6 @@ namespace celestial_frontier_web_api.ApiControllers
             Guid userGuid = _jwtService.GetUserGuid(HttpContext);
             fleet.UserGuid = userGuid;
             fleet.FleetGuid = Guid.NewGuid();
-            fleet.CrewCapacity = 2000;
 
             _context.Fleets.Add(fleet);
             try {
